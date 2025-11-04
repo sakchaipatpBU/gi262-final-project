@@ -5,21 +5,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-
+    private PlayerCharacter playerCharacter;
     
     [Header("Animation")]
     [SerializeField] private Animator animator;
-    [SerializeField] private string currentAnnimName;
+    [SerializeField] private string currentAnimName;
     [SerializeField] private string idleAnimName = "Idle";
     [SerializeField] private string attackAnimName = "Attack";
     [SerializeField] private string walkAnimName = "Walking";
     [SerializeField] private string getHitAnimName = "Damage";
     [SerializeField] private string deadAnimName = "Dead";
-    [SerializeField] private int targetDirection = 1;
+    [SerializeField] private int attackDirection = 1;
 
 
     [Header("Movement")]
@@ -45,14 +44,15 @@ public class PlayerController : MonoBehaviour
 
     [Header("Attack")]
     private InputAction attackAction;
-    private bool canAttack = true;
-    private float attackCooldownTime = 0.5f;
+    [SerializeField] private bool canAttack = true;
+    [SerializeField] private float attackCooldownTime = 0.5f;
+    [SerializeField] private List<GameObject> enemies = new List<GameObject>();
 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        playerCharacter = gameObject.GetComponent<PlayerCharacter>();
         animator = GetComponent<Animator>();
         moveAction = InputSystem.actions.FindAction("Move");
         attackAction = InputSystem.actions.FindAction("Attack");
@@ -68,7 +68,12 @@ public class PlayerController : MonoBehaviour
         // set anim on start -> idle
         ToggleXDirection(directionX);
         ToggleYDirection(directionY);
+        currentAnimName = idleAnimName;
         SetAnimation(idleAnimName);
+    }
+    private void Update()
+    {
+        
     }
 
     private void FixedUpdate()
@@ -83,11 +88,11 @@ public class PlayerController : MonoBehaviour
             {
                 if(directionY == 1)
                 {
-                    targetDirection = 4; // upper right side
+                    attackDirection = 4; // upper right side
                 }
                 else if(directionY == -1)
                 {
-                    targetDirection = 1; // lower right side
+                    attackDirection = 1; // lower right side
                 }
                 else
                 {
@@ -98,11 +103,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (directionY == 1)
                 {
-                    targetDirection = 3; // upper left side
+                    attackDirection = 3; // upper left side
                 }
                 else if (directionY == -1)
                 {
-                    targetDirection = 2; // lower left side
+                    attackDirection = 2; // lower left side
                 }
                 else
                 {
@@ -114,8 +119,9 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("directionX is Not correct value");
             }
 
-            SetAnimatorDirection(targetDirection);
+            SetAnimatorDirection(attackDirection);
             SetTriggerAnimation(attackAnimName);
+            AttackTarget();
 
 
             return;
@@ -208,11 +214,11 @@ public class PlayerController : MonoBehaviour
     {
         if (animator != null)
         {
-            if (currentAnnimName != null)
+            if (currentAnimName != null)
                 TurnOffCurrentAnimation(); // stop old
 
             animator.SetBool(animName, true); // run new
-            currentAnnimName = animName;
+            currentAnimName = animName;
         }
         else
         {
@@ -221,7 +227,7 @@ public class PlayerController : MonoBehaviour
     }
     public void TurnOffCurrentAnimation()
     {
-        animator.SetBool(currentAnnimName, false);
+        animator.SetBool(currentAnimName, false);
     }
     public void SetTriggerAnimation(string animName)
     {
@@ -250,6 +256,55 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.LogWarning($"SetAnimatorDirection : Animator Not found");
+        }
+    }
+
+    public void GetHitAnimation()
+    {
+        // set direction
+
+        // anim play
+    }
+    public void DeadAnimation()
+    {
+        // random 1 or 2 -> set animator. random
+
+        // anim play
+    }
+
+    public void AddEnemyList(GameObject enemy)
+    {
+        enemies.Add(enemy);
+    }
+    public void RemoveEnemyList(GameObject enemy)
+    {
+        enemies.Remove(enemy);
+    }
+
+    private void AttackTarget()
+    {
+        if (enemies.Count == 0) return;
+        foreach (GameObject enemy in enemies)
+        {
+            float distance = Vector2.Distance(transform.position, enemy.transform.position);
+            if (distance <= playerCharacter.attackRange)
+            {
+                int dX = Math.Sign(enemy.transform.position.x - transform.position.x);
+                if (dX == 1)
+                {
+                    if (attackDirection == 1 || attackDirection == 4)
+                    {
+                        enemy.GetComponent<EnemyCharacter>().TakeDamage(playerCharacter.Atk);
+                    }
+                }
+                else if(dX == -1)
+                {
+                    if (attackDirection == 2 || attackDirection == 3)
+                    {
+                        enemy.GetComponent<EnemyCharacter>().TakeDamage(playerCharacter.Atk);
+                    }
+                }
+            }
         }
     }
 }
