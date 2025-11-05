@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Attack")]
     private InputAction attackAction;
+    private Coroutine attackCooldownCoroutine;
     [SerializeField] private bool canAttack = true;
     [SerializeField] private float attackCooldownTime = 0.5f;
     [SerializeField] private List<GameObject> enemies = new List<GameObject>();
@@ -81,7 +82,7 @@ public class PlayerController : MonoBehaviour
         if(canAttack && attackAction.IsPressed())
         {
             // cooldown starting..
-            StartCoroutine(AttackActionCooldownCoroutine());
+            attackCooldownCoroutine = StartCoroutine(AttackActionCooldownCoroutine());
 
             // targetDirection depend on player look side
             if (directionX == 1)

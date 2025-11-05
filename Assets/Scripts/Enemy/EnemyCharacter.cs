@@ -7,7 +7,7 @@ public class EnemyCharacter : Character
     [SerializeField] private PlayerController playerController;
 
     [SerializeField] private float detectionRange = 5f;
-    [SerializeField] public float attackCooldown = 1.5f;
+    [SerializeField] private float attackCooldown = 1.5f;
     [SerializeField] private float lastAttackTime;
 
 

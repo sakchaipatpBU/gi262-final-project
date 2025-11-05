@@ -75,5 +75,8 @@ public class PlayerCharacter : Character
         gold += g;
     }
 
-    
+    public override void Dead()
+    {
+        base.Dead();
+    }
 }
