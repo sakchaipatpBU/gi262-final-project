@@ -92,7 +92,7 @@ public class EnemyCharacter : Character
         playerController.RemoveEnemyList(gameObject);
 
         // quest progress
-
+        QuestManager.Instance.ReportProgress(characterName, QuestObjectiveType.Kill);
 
         gameObject.SetActive(false);
     }
