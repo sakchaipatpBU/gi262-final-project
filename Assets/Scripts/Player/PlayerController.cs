@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerCharacter playerCharacter;
     
+    private InputAction moveAction;
+    private InputAction attackAction;
+
+
     [Header("Animation")]
     [SerializeField] private Animator animator;
     [SerializeField] private string currentAnimName;
@@ -22,8 +26,6 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Movement")]
-    [SerializeField] private InputAction moveAction;
-
     [SerializeField] private float directionX;
     [SerializeField] private float directionY;
     [SerializeField] private float moveSpeed;
@@ -43,11 +45,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 targetVelocity;
 
     [Header("Attack")]
-    private InputAction attackAction;
-    private Coroutine attackCooldownCoroutine;
     [SerializeField] private bool canAttack = true;
     [SerializeField] private float attackCooldownTime = 0.5f;
-    [SerializeField] private List<GameObject> enemies = new List<GameObject>();
+    [SerializeField] private List<EnemyCharacter> enemies = new List<EnemyCharacter>();
+    private Coroutine attackCooldownCoroutine;
 
 
     private void Start()
@@ -71,6 +72,8 @@ public class PlayerController : MonoBehaviour
         ToggleYDirection(directionY);
         currentAnimName = idleAnimName;
         SetAnimation(idleAnimName);
+
+        FindAllEnemyInScene();
     }
     private void Update()
     {
@@ -273,39 +276,42 @@ public class PlayerController : MonoBehaviour
         // anim play
     }
 
-    public void AddEnemyList(GameObject enemy)
-    {
-        enemies.Add(enemy);
-    }
-    public void RemoveEnemyList(GameObject enemy)
-    {
-        enemies.Remove(enemy);
-    }
-
     private void AttackTarget()
     {
         if (enemies.Count == 0) return;
-        foreach (GameObject enemy in enemies)
+        for (int i = enemies.Count - 1; i >= 0; i--)
         {
-            float distance = Vector2.Distance(transform.position, enemy.transform.position);
+            bool isEnemyDead = false;
+
+            float distance = Vector2.Distance(transform.position, enemies[i].transform.position);
             if (distance <= playerCharacter.attackRange)
             {
-                int dX = Math.Sign(enemy.transform.position.x - transform.position.x);
+                int dX = Math.Sign(enemies[i].transform.position.x - transform.position.x);
                 if (dX == 1)
                 {
                     if (attackDirection == 1 || attackDirection == 4)
                     {
-                        enemy.GetComponent<EnemyCharacter>().TakeDamage(playerCharacter.Atk);
+                        isEnemyDead = enemies[i].GetComponent<EnemyCharacter>().TakeDamage(playerCharacter.Atk);
                     }
                 }
                 else if(dX == -1)
                 {
                     if (attackDirection == 2 || attackDirection == 3)
                     {
-                        enemy.GetComponent<EnemyCharacter>().TakeDamage(playerCharacter.Atk);
+                        isEnemyDead = enemies[i].GetComponent<EnemyCharacter>().TakeDamage(playerCharacter.Atk);
                     }
                 }
             }
+            if (isEnemyDead) enemies.Remove(enemies[i]);
         }
+    }
+    void FindAllEnemyInScene()
+    {
+        if(enemies.Count != 0)
+        {
+            enemies.Clear();
+        }
+
+        enemies = FindObjectsByType<EnemyCharacter>(FindObjectsSortMode.None).ToList();
     }
 }

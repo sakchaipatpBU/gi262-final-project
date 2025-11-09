@@ -42,7 +42,6 @@ public class EnemyCharacter : Character
         rb = gameObject.GetComponent<Rigidbody2D>();
         playerCharacter = GameObject.Find("Player").GetComponent<PlayerCharacter>();
         playerController = playerCharacter.gameObject.GetComponent<PlayerController>();
-        playerController.AddEnemyList(gameObject);
     }
 
     private void Update()
@@ -89,7 +88,6 @@ public class EnemyCharacter : Character
         // TO-DO add Effect drop item, gold / quest progress
         playerCharacter.AddExperience(expDrop);
         playerCharacter.AddGold(goldDrop);
-        playerController.RemoveEnemyList(gameObject);
 
         // quest progress
         QuestManager.Instance.ReportProgress(characterName, QuestObjectiveType.Kill);

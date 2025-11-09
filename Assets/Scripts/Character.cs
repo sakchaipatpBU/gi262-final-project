@@ -22,14 +22,20 @@ public class Character : MonoBehaviour
         hp = maxHp;
     }
 
-    public void TakeDamage(float damage)
+    public bool TakeDamage(float damage)
     {
-        if(isDead) return;
+        if(isDead) return true;
 
         hp -= damage;
         Debug.Log($"{characterName} got {damage} damage. Now {hp} / {maxHp} hp.");
 
-        if (hp <= 0) Dead();
+        if (hp <= 0)
+        {
+            Dead();
+            return true;
+        }
+
+        return false;
     }
     
     
