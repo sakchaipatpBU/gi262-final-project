@@ -7,12 +7,19 @@ public class PlayerCharacter : Character
 {
     [Header("Level & Exp")]
     [SerializeField] private int currentExp = 0;
+    public int CurrentExp { get { return currentExp; } }
     [SerializeField] private int level = 1;
+    public int Level { get { return level; } }
+
     [SerializeField] private int expToNextLevel = 100;
+    public int ExpToNextLevel { get { return expToNextLevel; } }
+
     private float levelUpMultiplier = 1.5f; // if want to scale lvl. with linear function
 
     [Header("Gold")]
     [SerializeField] private int gold = 0;
+    public int Gold { get { return gold; } }
+
 
     [Header("Attack")]
     private PlayerController playerController;

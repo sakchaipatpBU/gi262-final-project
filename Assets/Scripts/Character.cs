@@ -9,7 +9,10 @@ public class Character : MonoBehaviour
     [Header("Character Stats")]
     public string characterName;
     [SerializeField] protected float maxHp;
+    public float MaxHp { get { return maxHp; } }
     [SerializeField] protected float hp;
+    public float Hp { get { return hp; } }
+
     [SerializeField] protected float atk;
     [SerializeField] protected float moveSpeed;
     public float attackRange = 1f;

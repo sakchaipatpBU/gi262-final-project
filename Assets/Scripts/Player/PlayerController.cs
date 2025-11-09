@@ -79,7 +79,12 @@ public class PlayerController : MonoBehaviour
     {
         
     }
-
+    private void OnDisable()
+    {
+        rb.linearVelocity = Vector3.zero;
+        SetAnimation(idleAnimName);
+        animator.SetFloat("Speed", 0);
+    }
     private void FixedUpdate()
     {
         if(canAttack && attackAction.IsPressed())
