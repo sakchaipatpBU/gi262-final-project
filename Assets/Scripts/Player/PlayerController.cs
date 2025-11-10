@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     
     private InputAction moveAction;
     private InputAction attackAction;
+    private bool isActive = true;
 
 
     [Header("Animation")]
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string getHitAnimName = "Damage";
     [SerializeField] private string deadAnimName = "Dead";
     [SerializeField] private int attackDirection = 1;
+    [SerializeField] private int hitDirection = 1;
 
 
     [Header("Movement")]
@@ -87,7 +89,14 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(canAttack && attackAction.IsPressed())
+        if(!isActive)
+        {
+            rb.linearVelocity = Vector3.zero;
+            animator.SetBool(deadAnimName, false);
+            return;
+        }
+
+        if (canAttack && attackAction.IsPressed())
         {
             // cooldown starting..
             attackCooldownCoroutine = StartCoroutine(AttackActionCooldownCoroutine());
@@ -270,15 +279,48 @@ public class PlayerController : MonoBehaviour
 
     public void GetHitAnimation()
     {
-        // set direction
+        // set dir
+        SetAnimatorDirection(hitDirection);
+        // play anim
+        SetTriggerAnimation(getHitAnimName);
+    }
+    public void SetHitDirection(Vector3 pos)
+    {
+        int dX = Math.Sign(pos.x - transform.position.x);
+        int dY = Math.Sign(pos.y - transform.position.y);
+        if(dX < 0)
+        {
+            if(dY < 0)
+            {
+                hitDirection = 2;
+            }
+            else
+            {
+                hitDirection = 3;
+            }
+        }
+        else
+        {
+            if( dY < 0)
+            {
+                hitDirection = 1;
+            }
+            else
+            {
+                hitDirection = 4;
+            }
+        }
 
-        // anim play
     }
     public void DeadAnimation()
     {
         // random 1 or 2 -> set animator. random
-
+        int random = UnityEngine.Random.Range(0, 2);
+        animator.SetFloat("Random", (float)random);
         // anim play
+        SetAnimation(deadAnimName);
+
+        isActive = false;
     }
 
     private void AttackTarget()
@@ -319,4 +361,6 @@ public class PlayerController : MonoBehaviour
 
         enemies = FindObjectsByType<EnemyCharacter>(FindObjectsSortMode.None).ToList();
     }
+
+    
 }

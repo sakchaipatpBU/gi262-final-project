@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -19,13 +20,14 @@ public class Character : MonoBehaviour
 
 
     protected bool isDead = false;
+    public bool IsDead {  get { return isDead; } }
 
     public virtual void Start()
     {
         hp = maxHp;
     }
 
-    public bool TakeDamage(float damage)
+    public virtual bool TakeDamage(float damage)
     {
         if(isDead) return true;
 
@@ -47,8 +49,21 @@ public class Character : MonoBehaviour
         if (isDead) return;
         if (target == null) return;
 
-        Debug.Log($"{characterName} attack {target.characterName} with {atk}");
-        target.TakeDamage(atk);
+        float distance = Vector2.Distance(transform.position, target.transform.position);
+        if (distance <= attackRange)
+        {
+            Debug.Log($"{characterName} attack {target.characterName} with {atk}");
+            target.gameObject.GetComponent<PlayerController>().SetHitDirection(transform.position);
+            target.TakeDamage(atk);
+        }
+        else
+        {
+            Debug.Log($"{characterName} attack {target.characterName} , But Not Hit");
+
+        }
+        //anim attack
+
+
     }
     public virtual void Dead()
     {

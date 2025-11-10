@@ -74,7 +74,7 @@ public class PlayerCharacter : Character
     {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
-
+        playerController = gameObject.GetComponent<PlayerController>();
         if (PlayerPrefs.HasKey("statusPointLeft"))
         {
             statusPointLeft = PlayerPrefs.GetInt("statusPointLeft");
@@ -141,8 +141,10 @@ public class PlayerCharacter : Character
     public override void Dead()
     {
         base.Dead();
+        playerController.DeadAnimation();
     }
 
+    #region Player Status System
     public bool TryBuyUpgrade(string upgrade, int value)
     {
         if(StatusPointLeft < value) return false;
@@ -241,5 +243,24 @@ public class PlayerCharacter : Character
         int value = StatusPoint - StatusPointLeft;
         int cal = value * 50;
         return cal;
+    }
+    #endregion
+
+    public override bool TakeDamage(float damage)
+    {
+        if (isDead) return true;
+
+        hp -= damage;
+        Debug.Log($"{characterName} got {damage} damage. Now {hp} / {maxHp} hp.");
+
+
+        if (hp <= 0)
+        {
+            Dead();
+            return true;
+        }
+        playerController.GetHitAnimation();
+
+        return false;
     }
 }

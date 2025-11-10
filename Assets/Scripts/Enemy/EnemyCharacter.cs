@@ -78,6 +78,7 @@ public class EnemyCharacter : Character
     }
     private void MoveToPlayer()
     {
+        if(playerCharacter.IsDead) return;
         Vector2 dir = (playerCharacter.transform.position - transform.position).normalized;
         rb.linearVelocity = dir * moveSpeed;
     }
