@@ -129,7 +129,7 @@ public class PlayerStatusUI : MonoBehaviour
     }
     void UpdateHpPriceTextUI()
     {
-        hpPriceText.text = playerCharacter
+        hpPriceText.text = "- " + playerCharacter
             .CalculateUpgradePrice(playerCharacter.HpPoint,
             playerCharacter.HpPoint + spendingPoint)
             .ToString();
@@ -140,7 +140,7 @@ public class PlayerStatusUI : MonoBehaviour
     }
     void UpdateAtkPriceTextUI()
     {
-        atkPriceText.text = playerCharacter
+        atkPriceText.text = "- " + playerCharacter
             .CalculateUpgradePrice(playerCharacter.AtkPoint,
             playerCharacter.AtkPoint + spendingPoint)
             .ToString();
@@ -151,7 +151,7 @@ public class PlayerStatusUI : MonoBehaviour
     }
     void UpdateMovementPriceTextUI()
     {
-        movementPriceText.text = playerCharacter
+        movementPriceText.text = "- " + playerCharacter
             .CalculateUpgradePrice(playerCharacter.MovementPoint,
             playerCharacter.MovementPoint + spendingPoint)
             .ToString();
@@ -243,7 +243,7 @@ public class PlayerStatusUI : MonoBehaviour
     }
     public void OnResetButtonClick()
     {
-        resetPriceText.text = playerCharacter.CalculateResetPrice().ToString();
+        resetPriceText.text = "- " + playerCharacter.CalculateResetPrice().ToString();
     }
 
     IEnumerator ShowFailPanel(string text)
