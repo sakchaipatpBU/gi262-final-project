@@ -331,7 +331,7 @@ public class PlayerController : MonoBehaviour
             bool isEnemyDead = false;
 
             float distance = Vector2.Distance(transform.position, enemies[i].transform.position);
-            if (distance <= playerCharacter.attackRange)
+            if (distance <= playerCharacter.AttackRange)
             {
                 int dX = Math.Sign(enemies[i].transform.position.x - transform.position.x);
                 if (dX == 1)

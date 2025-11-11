@@ -1,8 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
     public Rigidbody2D rb;
 
@@ -16,7 +14,8 @@ public class Character : MonoBehaviour
 
     [SerializeField] protected float atk;
     [SerializeField] protected float moveSpeed;
-    public float attackRange = 1f;
+    [SerializeField] protected float attackRange = 1f;
+    public float AttackRange {  get { return attackRange; } }
 
 
     protected bool isDead = false;
@@ -27,24 +26,10 @@ public class Character : MonoBehaviour
         hp = maxHp;
     }
 
-    public virtual bool TakeDamage(float damage)
-    {
-        if(isDead) return true;
-
-        hp -= damage;
-        Debug.Log($"{characterName} got {damage} damage. Now {hp} / {maxHp} hp.");
-
-        if (hp <= 0)
-        {
-            Dead();
-            return true;
-        }
-
-        return false;
-    }
+    public abstract bool TakeDamage(float damage);
     
     
-    public void PerformAttack(Character target)
+    public virtual void PerformAttack(Character target)
     {
         if (isDead) return;
         if (target == null) return;
@@ -61,8 +46,6 @@ public class Character : MonoBehaviour
             Debug.Log($"{characterName} attack {target.characterName} , But Not Hit");
 
         }
-        //anim attack
-
 
     }
     public virtual void Dead()
