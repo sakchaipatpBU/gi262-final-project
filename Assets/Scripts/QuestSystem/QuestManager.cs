@@ -3,16 +3,15 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    public static QuestManager Instance;
-
-    [Header("Current Quest")]
     public QuestProgress currentQuest; // only 1 quest can be accept
 
     private PlayerCharacter player;
 
+    private static QuestManager instance;
+    public static QuestManager Instance { get { return instance; } }
     private void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (instance == null) instance = this;
         else Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);

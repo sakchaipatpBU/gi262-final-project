@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: KillOrcLvl10
   m_EditorClassIdentifier: 
   questName: KillOrcLvl10
+  questIcon: {fileID: 0}
+  playerLevel: 0
+  combatScore: 0
+  prerequisiteQuest: {fileID: 0}
   objectives:
   - type: 0
     targetName: Orc
@@ -20,5 +24,9 @@ MonoBehaviour:
   - type: 0
     targetName: Orc
     requiredAmount: 100
+  objective:
+    type: 0
+    targetName: 
+    requiredAmount: 1
   expReward: 100
   goldReward: 100

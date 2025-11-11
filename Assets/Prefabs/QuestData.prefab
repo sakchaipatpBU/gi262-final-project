@@ -1079,7 +1079,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 1513039892730773642}
   questNameText: {fileID: 7984054579938304932}
-  requirementText: {fileID: 6814552243741284255}
+  requireAmountText: {fileID: 6814552243741284255}
+  requirementText: {fileID: 5604758351011291736}
   rewardText: {fileID: 8970685890993969988}
   acceptButton: {fileID: 401845627178264431}
   claimButton: {fileID: 5124711099466994331}

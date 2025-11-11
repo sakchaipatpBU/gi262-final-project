@@ -13,9 +13,17 @@ MonoBehaviour:
   m_Name: Test03
   m_EditorClassIdentifier: 
   questName: Test03
+  questIcon: {fileID: 0}
+  playerLevel: 0
+  combatScore: 0
+  prerequisiteQuest: {fileID: 0}
   objectives:
   - type: 1
     targetName: Coin
     requiredAmount: 20
+  objective:
+    type: 0
+    targetName: 
+    requiredAmount: 1
   expReward: 20
   goldReward: 20

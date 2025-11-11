@@ -7,6 +7,7 @@ public class QuestSlotUI : MonoBehaviour
     [Header("UI Elements")]
     public Image icon;
     public TMP_Text questNameText;
+    public TMP_Text requireAmountText;
     public TMP_Text requirementText;
     public TMP_Text rewardText;
     public Button acceptButton;
@@ -23,44 +24,33 @@ public class QuestSlotUI : MonoBehaviour
     public void SetQuestData(QuestData data)
     {
         questData = data;
-
-        // ตั้งค่าข้อมูล UI
         if (questData == null) return;
 
+        icon.sprite = questData.questIcon;
         questNameText.text = questData.questName;
-        requirementText.text = BuildRequirementString(questData);
-        rewardText.text = $"Reward: {questData.expReward} EXP / {questData.goldReward} Gold";
-
-        // icon ถ้ามี
-        if (icon != null)
+        requireAmountText.text = $"Amount: {questData.objective.requiredAmount}";
+        requirementText.text = $"Requirements: Level {questData.playerLevel} , CP {questData.combatScore}";
+        if(questData.prerequisiteQuest != null)
         {
-            var sprite = Resources.Load<Sprite>($"QuestIcons/{questData.questName}");
-            if (sprite) icon.sprite = sprite;
+            requirementText.text += $" Quest Require: {questData.prerequisiteQuest}";
         }
+        rewardText.text = $"Reward: {questData.goldReward} Coins / {questData.expReward} EXP";
 
-        // ตั้งค่าปุ่ม
+        // setup button
         acceptButton.onClick.AddListener(() => AcceptQuest());
         claimButton.onClick.AddListener(() => ClaimQuest());
         cancelButton.onClick.AddListener(() => CancelQuest());
 
         UpdateButtonState();
     }
-    private string BuildRequirementString(QuestData quest)
-    {
-        string req = "";
-        foreach (var obj in quest.objectives)
-        {
-            req += $"- {obj.type} {obj.targetName} x{obj.requiredAmount}\n";
-        }
-        return req.TrimEnd('\n');
-    }
-    private void UpdateButtonState()
+    
+    public void UpdateButtonState()
     {
         bool hasQuest = QuestManager.Instance.HasActiveQuest();
 
         if (!hasQuest)
         {
-            // ยังไม่มีเควส → ปุ่มรับเควสเท่านั้น
+            // No quest → accept only
             acceptButton.gameObject.SetActive(true);
             claimButton.gameObject.SetActive(false);
             cancelButton.gameObject.SetActive(false);
@@ -68,7 +58,11 @@ public class QuestSlotUI : MonoBehaviour
         else
         {
             var currentQuest = QuestManager.Instance.currentQuest;
-            if (currentQuest == null) return;
+            if (currentQuest == null)
+            {
+                Debug.Log("Can NOT found current quest from QuestManager");
+                return;
+            }
 
             if (currentQuest.questData == questData)
             {
@@ -86,7 +80,7 @@ public class QuestSlotUI : MonoBehaviour
                 }
                 else
                 {
-                    // เคลมแล้ว
+                    // claimed
                     acceptButton.gameObject.SetActive(false);
                     claimButton.gameObject.SetActive(false);
                     cancelButton.gameObject.SetActive(false);
@@ -94,7 +88,7 @@ public class QuestSlotUI : MonoBehaviour
             }
             else
             {
-                // มีเควสอื่นอยู่ → ปุ่มทั้งหมดปิด
+                // has other quest → close all button
                 acceptButton.gameObject.SetActive(false);
                 claimButton.gameObject.SetActive(false);
                 cancelButton.gameObject.SetActive(false);
@@ -104,18 +98,18 @@ public class QuestSlotUI : MonoBehaviour
     private void AcceptQuest()
     {
         QuestManager.Instance.AcceptQuest(questData);
-        UpdateButtonState();
+        QuestUIManager.Instance.UpdateAllQuestSlot();
     }
 
     private void ClaimQuest()
     {
         QuestManager.Instance.ClaimReward();
-        UpdateButtonState();
+        QuestUIManager.Instance.UpdateAllQuestSlot();
     }
 
     private void CancelQuest()
     {
         QuestManager.Instance.CancelQuest();
-        UpdateButtonState();
+        QuestUIManager.Instance.UpdateAllQuestSlot();
     }
 }

@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour
         moveSpeedMultiplier = playerCharacter.MoveSpeedMultiplier;
 
         // setup animatiaon
-        animator = playerCharacter.animator;
         idleAnimName = playerCharacter.idleAnimName;
         attackAnimName = playerCharacter.attackAnimName;
         walkAnimName = playerCharacter.walkAnimName;

@@ -10,7 +10,7 @@ public enum QuestObjectiveType
 [System.Serializable]
 public class QuestObjective
 {
-    //public string description;
+    //public string description; //add-on
     public QuestObjectiveType type;
     public string targetName;
     public int requiredAmount = 1;

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class EnemyCharacter : Character
+public abstract class EnemyCharacter : Character
 {
     [SerializeField] protected PlayerCharacter playerCharacter;
     [SerializeField] protected PlayerController playerController;
@@ -10,7 +10,6 @@ public class EnemyCharacter : Character
     [SerializeField] protected float detectionRange = 5f;
     [SerializeField] protected float attackCooldown = 1.5f;
     [SerializeField] protected float lastAttackTime;
-
 
     [SerializeField] protected int expDrop = 100;
     [SerializeField] protected int goldDrop = 10;
@@ -20,84 +19,31 @@ public class EnemyCharacter : Character
     protected Coroutine attackCoroutine;
     protected Coroutine dieCoroutine;
 
-
-    public EnemyCharacter()
-    {
-
-    }
-    public EnemyCharacter(string _characterName, float _hp = 100, 
-        float _atk = 5, float _moveSpeed = 2)
-    {
-        characterName = _characterName;
-        hp = _hp;
-        atk = _atk;
-        moveSpeed = _moveSpeed;
-    }
-    public EnemyCharacter(string _characterName, float _hp = 100,
-        float _atk = 5, float _moveSpeed = 2, float _detectionRange = 2f,
-        float _atkRange = 1f, float _attackCooldown = 1.5f)
-    {
-        characterName = _characterName;
-        hp = _hp;
-        atk = _atk;
-        moveSpeed = _moveSpeed;
-        detectionRange = _detectionRange;
-        attackRange = _atkRange;
-        attackCooldown = _attackCooldown;
-    }
-
     public override void Start()
     {
         base.Start();
-        rb = gameObject.GetComponent<Rigidbody2D>();
         playerCharacter = GameObject.Find("Player").GetComponent<PlayerCharacter>();
         playerController = playerCharacter.gameObject.GetComponent<PlayerController>();
         animator = gameObject.GetComponent<Animator>();
     }
-
     private void Update()
     {
         if (playerCharacter == null || isDead) return;
 
         AIBehavior();
     }
-    private void AIBehavior()
+    public abstract void AIBehavior();
+    public abstract void TryAttack();
+    public abstract void PerformAttack(Character target);
+    public abstract IEnumerator AttackAnimCoroutine();
+    public virtual void MoveToPlayer()
     {
-        float distance = Vector2.Distance(transform.position, playerCharacter.transform.position);
-
-        if (distance <= attackRange)
-        {
-            rb.linearVelocity = Vector2.zero;
-            TryAttack();
-        }
-        else if (distance <= detectionRange)
-        {
-            MoveToPlayer();
-        }
-        else
-        {
-            rb.linearVelocity = Vector2.zero; // stop when out of area
-        }
-    }
-    public virtual void TryAttack()
-    {
-        if (Time.time - lastAttackTime >= attackCooldown)
-        {
-            lastAttackTime = Time.time;
-            PerformAttack(playerCharacter);
-            // attack anim
-            SetAnimation(attackAnimName);
-            attackCoroutine = StartCoroutine(AttackCoroutine());
-        }
-    }
-    private void MoveToPlayer()
-    {
-        if(playerCharacter.IsDead) return;
+        if (playerCharacter.IsDead) return;
         Vector2 dir = (playerCharacter.transform.position - transform.position).normalized;
         rb.linearVelocity = dir * moveSpeed;
 
         // anim walk
-        if(attackCoroutine != null)
+        if (attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);
         }
@@ -106,7 +52,6 @@ public class EnemyCharacter : Character
         SetDirection(x, y);
         SetAnimation(walkAnimName);
     }
-
     public override bool TakeDamage(float damage)
     {
         if (isDead) return true;
@@ -131,6 +76,7 @@ public class EnemyCharacter : Character
 
         rb.linearVelocity = Vector2.zero;
         // TO-DO add Effect drop item, gold / quest progress
+
         playerCharacter.AddExperience(expDrop);
         playerCharacter.AddGold(goldDrop);
 
@@ -142,21 +88,14 @@ public class EnemyCharacter : Character
         SetAnimation(deadAnimName);
 
         dieCoroutine = StartCoroutine(DieCoroutine());
-
     }
-    IEnumerator AttackCoroutine()
-    {
-        yield return new WaitForSeconds(0.5f);
-        SetAnimation(idleAnimName);
-    }
-    IEnumerator DieCoroutine()
+    protected IEnumerator DieCoroutine()
     {
         yield return new WaitForSeconds(1.5f);
         gameObject.SetActive(false);
     }
 
     #region Animation
-
     public void SetDirection(float x, float y)
     {
         ToggleXDirection(x);

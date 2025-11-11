@@ -18,8 +18,7 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected float attackRange = 1f;
     public float AttackRange {  get { return attackRange; } }
     protected bool isDead = false;
-    public bool IsDead {  get { return isDead; } }
-
+    public bool IsDead { get { return isDead; } }
 
 
     [Header("Animation")]
@@ -33,34 +32,18 @@ public abstract class Character : MonoBehaviour
     public int attackDirection = 1;
     public int hitDirection = 1;
 
-
-
-    public virtual void Start()
+    private void Awake()
     {
         hp = maxHp;
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
+    public virtual void Start()
+    {
+        
     }
 
     public abstract bool TakeDamage(float damage);
     public abstract void Dead();
 
-    public virtual void PerformAttack(Character target)
-    {
-        if (isDead) return;
-        if (target == null) return;
-
-        float distance = Vector2.Distance(transform.position, target.transform.position);
-        if (distance <= attackRange)
-        {
-            Debug.Log($"{characterName} attack {target.characterName} with {atk}");
-            target.gameObject.GetComponent<PlayerController>().SetHitDirection(transform.position);
-            target.TakeDamage(atk);
-        }
-        else
-        {
-            Debug.Log($"{characterName} attack {target.characterName} , But Not Hit");
-
-        }
-
-    }
-    
 }

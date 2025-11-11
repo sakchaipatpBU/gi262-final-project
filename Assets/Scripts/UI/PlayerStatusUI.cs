@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -32,14 +31,6 @@ public class PlayerStatusUI : MonoBehaviour
     public TMP_Text failText;
     public TMP_Text resetPriceText;
 
-    /*[Header("Button")]
-    public Button hpUpgradeButton;
-    public Button atkUpgradeButton;
-    public Button movementUpgradeButton;
-    public Button resetButton;*/
-
-
-
     private PlayerCharacter playerCharacter;
     private PlayerController playerController;
     private InputAction statusAction;
@@ -55,8 +46,6 @@ public class PlayerStatusUI : MonoBehaviour
         CloseDisplayUI();
         failPanel.SetActive(false);
         resetPanel.SetActive(false);
-
-
     }
 
     private void Update()

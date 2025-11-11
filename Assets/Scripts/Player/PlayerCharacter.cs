@@ -6,89 +6,36 @@ using UnityEngine;
 
 public class PlayerCharacter : Character
 {
+    [Header("Attack")]
+    private PlayerController playerController;
+
     [Header("Level & Exp")]
     [SerializeField] private int currentExp = 0;
     public int CurrentExp { get { return currentExp; } }
     [SerializeField] private int level = 1;
     public int Level { get { return level; } }
-
     [SerializeField] private int expToNextLevel = 100;
     public int ExpToNextLevel { get { return expToNextLevel; } }
-    
-
-
     private float levelUpMultiplier = 1.5f; // if want to scale lvl. with linear function
 
     [Header("Gold")]
     [SerializeField] private int gold = 0;
     public int Gold { get { return gold; } }
-
-
-    [Header("Attack")]
-    private PlayerController playerController;
-
-    [Header("Status")]
+    
+    [Header("Status Point")]
+    [SerializeField] private int basePrice = 5;
     [SerializeField] private int statusPoint;
     public int StatusPoint { get { return statusPoint; } }
     [SerializeField] private int statusPointLeft;
-    public int StatusPointLeft 
-    { 
-        get { return statusPointLeft; }
-        set { statusPointLeft = value; }
-    }
-    [SerializeField] private int basePrice = 5;
+    public int StatusPointLeft {  get { return statusPointLeft; } set { statusPointLeft = value; } }
     [SerializeField] private int hpPoint;
-    public int HpPoint 
-    { 
-        get 
-        { return hpPoint; }
-        set
-        {
-            hp = value;
-        }
-    }
+    public int HpPoint {  get { return hpPoint; } set { hpPoint = value; } }
+
     [SerializeField] private int atkPoint;
-    public int AtkPoint
-    {
-        get
-        { return atkPoint; }
-        set
-        {
-            atkPoint = value;
-        }
-    }
+    public int AtkPoint {  get { return atkPoint; } set { atkPoint = value; } }
+
     [SerializeField] private int movementPoint;
-    public int MovementPoint
-    {
-        get
-        { return movementPoint; }
-        set
-        {
-            movementPoint = value;
-        }
-    }
-
-
-
-    public override void Start()
-    {
-        base.Start();
-        rb = GetComponent<Rigidbody2D>();
-        playerController = gameObject.GetComponent<PlayerController>();
-        if (PlayerPrefs.HasKey("statusPointLeft"))
-        {
-            statusPointLeft = PlayerPrefs.GetInt("statusPointLeft");
-        }
-        else
-        {
-            statusPointLeft = statusPoint;
-            PlayerPrefs.SetInt("statusPointLeft", statusPointLeft);
-        }
-    }
-    private void Update()
-    {
-        
-    }
+    public int MovementPoint { get { return movementPoint; } set { movementPoint = value; } }
 
     [SerializeField] private float moveSpeedMultiplier = 1;
     public float MoveSpeedMultiplier
@@ -101,8 +48,53 @@ public class PlayerCharacter : Character
         }
     }
 
+    public override void Start()
+    {
+        base.Start();
+        playerController = gameObject.GetComponent<PlayerController>();
+
+        if (PlayerPrefs.HasKey("statusPointLeft"))
+        {
+            statusPointLeft = PlayerPrefs.GetInt("statusPointLeft");
+        }
+        else
+        {
+            statusPointLeft = statusPoint;
+            PlayerPrefs.SetInt("statusPointLeft", statusPointLeft);
+        }
 
 
+    }
+
+    public override bool TakeDamage(float damage)
+    {
+        if (isDead) return true;
+
+        hp -= damage;
+        Debug.Log($"{characterName} got {damage} damage. Now {hp} / {maxHp} hp.");
+
+        if (hp <= 0)
+        {
+            Dead();
+            return true;
+        }
+        playerController.GetHitAnimation();
+
+        return false;
+    }
+    public override void Dead()
+    {
+        isDead = true;
+        hp = 0;
+        Debug.Log($"{characterName} is dead!");
+        playerController.DeadAnimation();
+
+        // to-do add effect
+    }
+    public void AddGold(int g)
+    {
+        gold += g;
+    }
 
     #region Exp & Level
     private int CalculateExpForLevel(int targetLevel)
@@ -126,26 +118,7 @@ public class PlayerCharacter : Character
             // TO-DO Trigger level-up effects, stat increases, etc.
         }
     }
-
     #endregion
-
-    public int GetGold()
-    {
-        return gold;
-    }
-    public void AddGold(int g)
-    {
-        gold += g;
-    }
-
-    public override void Dead()
-    {
-        isDead = true;
-        hp = 0;
-        Debug.Log($"{characterName} is dead!");
-        // to-do add effect
-        playerController.DeadAnimation();
-    }
 
     #region Player Status System
     public bool TryBuyUpgrade(string upgrade, int value)
@@ -155,7 +128,6 @@ public class PlayerCharacter : Character
         int price;
         if(upgrade == "hp")
         {
-            //baseValue = HpPoint - value;
             price = CalculateUpgradePrice(HpPoint, HpPoint + value);
             if(gold > price)
             {
@@ -186,7 +158,6 @@ public class PlayerCharacter : Character
         }
         return false;
     }
-
     public int CalculateUpgradePrice(int _baseValue, int targetValue)
     {
         if(targetValue <= _baseValue)
@@ -249,21 +220,4 @@ public class PlayerCharacter : Character
     }
     #endregion
 
-    public override bool TakeDamage(float damage)
-    {
-        if (isDead) return true;
-
-        hp -= damage;
-        Debug.Log($"{characterName} got {damage} damage. Now {hp} / {maxHp} hp.");
-
-
-        if (hp <= 0)
-        {
-            Dead();
-            return true;
-        }
-        playerController.GetHitAnimation();
-
-        return false;
-    }
 }

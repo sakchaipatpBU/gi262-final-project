@@ -4,12 +4,20 @@ using UnityEngine;
 public class QuestData : ScriptableObject
 {
     [Header("Quest Info")]
-    //public string questID;
     public string questName;
+    public Sprite questIcon;
+
+    //public string questID;
     //[TextArea] public string questDescription;
 
+    [Header("Requirements")]
+    public int playerLevel;
+    public int combatScore;
+    public QuestData prerequisiteQuest;
+
     [Header("Objectives")]
-    public QuestObjective[] objectives;
+    public QuestObjective[] objectives; // old
+    public QuestObjective objective;    // new
 
     [Header("Rewards")]
     public int expReward;

@@ -1,10 +1,11 @@
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    public float speed = 6f;
-    private float damage;
-    private Vector2 direction;
+    [SerializeField] private float speed = 6f;
+    [SerializeField] private float damage;
+    [SerializeField] private Vector2 direction;
 
     public void Initialize(Vector2 dir, float dmg)
     {
@@ -24,6 +25,7 @@ public class EnemyProjectile : MonoBehaviour
         if (player != null)
         {
             player.TakeDamage(damage);
+            player.gameObject.GetComponent<PlayerController>().SetHitDirection(transform.position);
             Destroy(gameObject);
         }
         else if (!other.isTrigger && !other.GetComponent<EnemyCharacter>())
