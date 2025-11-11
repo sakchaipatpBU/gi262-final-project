@@ -90,18 +90,18 @@ public class PlayerCharacter : Character
         
     }
 
-    private float moveSpeedMultiplier;
+    [SerializeField] private float moveSpeedMultiplier = 1;
     public float MoveSpeedMultiplier
     {
-        get {  return moveSpeedMultiplier; }
-        set { moveSpeedMultiplier = value; }
+        get { return moveSpeedMultiplier; }
+        set
+        {
+            moveSpeedMultiplier = value; // ex. 1.1 , 1.25 , 2.5
+            playerController.UpdateMoveSpeedMultiplier();
+        }
     }
 
-    public float Atk
-    {
-        get { return atk; }
-        set { atk = value; }
-    }
+
 
 
     #region Exp & Level
@@ -140,7 +140,10 @@ public class PlayerCharacter : Character
 
     public override void Dead()
     {
-        base.Dead();
+        isDead = true;
+        hp = 0;
+        Debug.Log($"{characterName} is dead!");
+        // to-do add effect
         playerController.DeadAnimation();
     }
 

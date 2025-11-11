@@ -18,11 +18,11 @@ public class PlayerController : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private Animator animator;
     [SerializeField] private string currentAnimName;
-    [SerializeField] private string idleAnimName = "Idle";
-    [SerializeField] private string attackAnimName = "Attack";
-    [SerializeField] private string walkAnimName = "Walking";
-    [SerializeField] private string getHitAnimName = "Damage";
-    [SerializeField] private string deadAnimName = "Dead";
+    [SerializeField] private string idleAnimName;
+    [SerializeField] private string attackAnimName;
+    [SerializeField] private string walkAnimName;
+    [SerializeField] private string getHitAnimName;
+    [SerializeField] private string deadAnimName;
     [SerializeField] private int attackDirection = 1;
     [SerializeField] private int hitDirection = 1;
 
@@ -31,15 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float directionX;
     [SerializeField] private float directionY;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float moveSpeedMultiplier = 1;
-    public float MoveSpeedMultiplier
-    {
-        get { return moveSpeedMultiplier; }
-        set
-        {
-            moveSpeedMultiplier = value; // ex. 1.1 , 1.25 , 2.5
-        }
-    }
+    [SerializeField] private float moveSpeedMultiplier;
     [SerializeField] private float smoothTime = 0.1f;
 
     [SerializeField] private Vector2 moveDirection;
@@ -64,6 +56,17 @@ public class PlayerController : MonoBehaviour
         attackCooldownTime = animator.runtimeAnimatorController
             .animationClips.First(c => c.name
             .StartsWith("Human_Attack")).length;
+
+        moveSpeed = playerCharacter.MoveSpeed;
+        moveSpeedMultiplier = playerCharacter.MoveSpeedMultiplier;
+
+        // setup animatiaon
+        animator = playerCharacter.animator;
+        idleAnimName = playerCharacter.idleAnimName;
+        attackAnimName = playerCharacter.attackAnimName;
+        walkAnimName = playerCharacter.walkAnimName;
+        getHitAnimName = playerCharacter.getHitAnimName;
+        deadAnimName = playerCharacter.deadAnimName;
 
         // look right side when start the game
         directionX = 1;
@@ -362,5 +365,8 @@ public class PlayerController : MonoBehaviour
         enemies = FindObjectsByType<EnemyCharacter>(FindObjectsSortMode.None).ToList();
     }
 
-    
+    public void UpdateMoveSpeedMultiplier()
+    {
+        moveSpeedMultiplier = playerCharacter.MoveSpeedMultiplier;
+    }
 }

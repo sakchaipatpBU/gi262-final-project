@@ -16,13 +16,7 @@ public class EnemyCharacter : Character
     [SerializeField] protected int goldDrop = 10;
 
     [Header("Animation")]
-    [SerializeField] protected Animator animator;
     [SerializeField] protected string currentAnimName;
-    [SerializeField] protected string idleAnimName = "Idle";
-    [SerializeField] protected string walkAnimName = "Walk";
-    [SerializeField] protected string attackAnimName = "Attack";
-    [SerializeField] protected string getHitAnimName = "Dmg";
-    [SerializeField] protected string deadAnimName = "Die";
     protected Coroutine attackCoroutine;
     protected Coroutine dieCoroutine;
 
@@ -130,7 +124,11 @@ public class EnemyCharacter : Character
     }
     public override void Dead()
     {
-        base.Dead();
+        isDead = true;
+        hp = 0;
+        Debug.Log($"{characterName} is dead!");
+        // to-do add effect
+
         rb.linearVelocity = Vector2.zero;
         // TO-DO add Effect drop item, gold / quest progress
         playerCharacter.AddExperience(expDrop);
