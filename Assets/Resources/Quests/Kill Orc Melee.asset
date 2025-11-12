@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90ac080a716e8134784e5947d0e1a2e9, type: 3}
-  m_Name: KillOrc
+  m_Name: Kill Orc Melee
   m_EditorClassIdentifier: 
-  questName: KillOrc
-  questIcon: {fileID: 0}
-  playerLevel: 0
-  combatScore: 0
+  questName: Kill Orc Melee
+  questIcon: {fileID: 5717584393450056696, guid: d3df8c8b3a27b8b44a8117d2f0e38800, type: 3}
+  playerLevel: 1
+  combatScore: 10
   prerequisiteQuest: {fileID: 0}
   objectives:
   - type: 0
-    targetName: Orc
-    requiredAmount: 10
+    targetName: Orc Melee
+    requiredAmount: 5
   objective:
     type: 0
-    targetName: 
-    requiredAmount: 1
-  expReward: 100
-  goldReward: 100
+    targetName: Orc Melee
+    requiredAmount: 5
+  expReward: 120
+  goldReward: 120

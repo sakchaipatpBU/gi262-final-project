@@ -254,7 +254,6 @@ public class PlayerController : MonoBehaviour
         if(animator != null)
         {
             animator.SetTrigger(animName);
-            Debug.Log($"{animName} animation was Triggered");
         }
         else
         {

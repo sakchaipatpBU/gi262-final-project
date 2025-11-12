@@ -3,29 +3,29 @@ using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerCharacter : Character
 {
-    [Header("Attack")]
     private PlayerController playerController;
 
     [Header("Level & Exp")]
     [SerializeField] private int currentExp = 0;
-    public int CurrentExp { get { return currentExp; } }
+    public int CurrentExp { get { return currentExp; } set { currentExp = value; } }
     [SerializeField] private int level = 1;
-    public int Level { get { return level; } }
+    public int Level { get { return level; } set { level = value; } }
     [SerializeField] private int expToNextLevel = 100;
-    public int ExpToNextLevel { get { return expToNextLevel; } }
+    public int ExpToNextLevel { get { return expToNextLevel; } set { expToNextLevel = value; } }
     private float levelUpMultiplier = 1.5f; // if want to scale lvl. with linear function
 
     [Header("Gold")]
     [SerializeField] private int gold = 0;
-    public int Gold { get { return gold; } }
+    public int Gold { get { return gold; } set { gold = value; } }
     
     [Header("Status Point")]
     [SerializeField] private int basePrice = 5;
     [SerializeField] private int statusPoint;
-    public int StatusPoint { get { return statusPoint; } }
+    public int StatusPoint { get { return statusPoint; } set { statusPoint = value; } }
     [SerializeField] private int statusPointLeft;
     public int StatusPointLeft {  get { return statusPointLeft; } set { statusPointLeft = value; } }
     [SerializeField] private int hpPoint;
@@ -48,22 +48,17 @@ public class PlayerCharacter : Character
         }
     }
 
+    [SerializeField] private float baseMaxHp;
+    [SerializeField] private float baseAtk;
+    [SerializeField] private float baseMovement;
+
     public override void Start()
     {
         base.Start();
         playerController = gameObject.GetComponent<PlayerController>();
 
-        if (PlayerPrefs.HasKey("statusPointLeft"))
-        {
-            statusPointLeft = PlayerPrefs.GetInt("statusPointLeft");
-        }
-        else
-        {
-            statusPointLeft = statusPoint;
-            PlayerPrefs.SetInt("statusPointLeft", statusPointLeft);
-        }
-
-
+        SaveGame.LoadPlayerData(this);
+        UpdateAllPlayerStatus();
     }
 
     public override bool TakeDamage(float damage)
@@ -181,19 +176,28 @@ public class PlayerCharacter : Character
     {
         HpPoint += value;
         statusPointLeft -= value; 
-        maxHp += HpPoint * 10;
+        maxHp = baseMaxHp + HpPoint * 10;
     }
     void UpdateAtkStatus(int value)
     {
         AtkPoint += value;
         statusPointLeft -= value;
-        atk += AtkPoint * 10;
+        atk = baseAtk + AtkPoint * 10;
     }
     void UpdataMovementStatus(int value)
     {
         MovementPoint += value;
         statusPointLeft -= value;
-        moveSpeed *= moveSpeedMultiplier + value / 10;
+        moveSpeedMultiplier = 1 + (MovementPoint / 10);
+        moveSpeed = baseMovement * moveSpeedMultiplier;
+    }
+    void UpdateAllPlayerStatus()
+    {
+        maxHp = baseMaxHp + HpPoint * 10;
+        if(hp > maxHp) hp = maxHp;
+        atk = baseAtk + AtkPoint * 10;
+        moveSpeedMultiplier = 1 + (MovementPoint / 10);
+        moveSpeed = baseMovement * moveSpeedMultiplier;
     }
 
     public bool ResetStatus()
@@ -209,6 +213,8 @@ public class PlayerCharacter : Character
         HpPoint = 0;
         AtkPoint = 0;
         MovementPoint = 0;
+
+        UpdateAllPlayerStatus();
 
         return true;
     }

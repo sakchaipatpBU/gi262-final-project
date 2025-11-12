@@ -10,14 +10,13 @@ public class QuestUIManager : MonoBehaviour
     public GameObject questSlotPrefab;
     public GameObject questBoard;
 
-
     private List<QuestData> allQuests = new List<QuestData>();
     private List<QuestSlotUI> allQuestsOnBoard = new List<QuestSlotUI>();
 
-    private PlayerCharacter playerCharacter;
+    private QuestBoardNPC questBoardNPC;
     private InputAction questAction;
     [SerializeField] private bool isDisplay = false;
-    public bool canDisplay = false;
+    [SerializeField] private bool canDisplay = false;
 
     private static QuestUIManager instance;
     public static QuestUIManager Instance {  get { return instance; } }
@@ -29,13 +28,14 @@ public class QuestUIManager : MonoBehaviour
     private void Start()
     {
         questAction = InputSystem.actions.FindAction("Interact");
+        questBoardNPC = GameObject.Find("QuestBoardNPC").GetComponent<QuestBoardNPC>();
         LoadAllQuests();
         GenerateQuestListUI();
         questBoard.SetActive(false);
     }
     private void Update()
     {
-
+        canDisplay = questBoardNPC.canOpenQuestBoardUI;
         if (questAction.triggered)
         {
             if(canDisplay && !isDisplay)
@@ -83,6 +83,11 @@ public class QuestUIManager : MonoBehaviour
         {
             quest.UpdateButtonState();
         }
+    }
+    public void CloseBoardQuest()
+    {
+        isDisplay = false;
+        questBoard.SetActive(false);
     }
 
     public void OnExitQuestBoardButtonClicked()

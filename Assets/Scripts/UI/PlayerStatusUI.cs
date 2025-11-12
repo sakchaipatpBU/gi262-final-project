@@ -147,7 +147,7 @@ public class PlayerStatusUI : MonoBehaviour
     }
     void UpdatePointLeftUI()
     {
-        pointLeftText.text = playerCharacter.StatusPointLeft.ToString();
+        pointLeftText.text = "Point Left : " + playerCharacter.StatusPointLeft.ToString();
     }
     
 
