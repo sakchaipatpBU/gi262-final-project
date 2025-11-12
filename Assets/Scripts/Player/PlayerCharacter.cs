@@ -24,6 +24,8 @@ public class PlayerCharacter : Character
     
     [Header("Status Point")]
     [SerializeField] private int basePrice = 5;
+    [SerializeField] private int combatScore;
+    public int CombatScore {  get { return combatScore; } set { combatScore = value; } }
     [SerializeField] private int statusPoint;
     public int StatusPoint { get { return statusPoint; } set { statusPoint = value; } }
     [SerializeField] private int statusPointLeft;
@@ -94,7 +96,7 @@ public class PlayerCharacter : Character
     #region Exp & Level
     private int CalculateExpForLevel(int targetLevel)
     {
-        return (int)(100 * Mathf.Pow(targetLevel, 2));
+        return (int)(10 * Mathf.Pow(targetLevel, 2));
     }
     public void AddExperience(int amount)
     {
@@ -106,6 +108,7 @@ public class PlayerCharacter : Character
         while (currentExp >= expToNextLevel)
         {
             level++;
+            statusPoint++;
             currentExp -= expToNextLevel;
             expToNextLevel = CalculateExpForLevel(level + 1);
             Console.WriteLine($"Player leveled up to Level {level}!");
@@ -175,21 +178,20 @@ public class PlayerCharacter : Character
     void UpdateHpStatus(int value)
     {
         HpPoint += value;
-        statusPointLeft -= value; 
-        maxHp = baseMaxHp + HpPoint * 10;
+        statusPointLeft -= value;
+        UpdateAllPlayerStatus();
     }
     void UpdateAtkStatus(int value)
     {
         AtkPoint += value;
         statusPointLeft -= value;
-        atk = baseAtk + AtkPoint * 10;
+        UpdateAllPlayerStatus();
     }
     void UpdataMovementStatus(int value)
     {
         MovementPoint += value;
         statusPointLeft -= value;
-        moveSpeedMultiplier = 1 + (MovementPoint / 10);
-        moveSpeed = baseMovement * moveSpeedMultiplier;
+        UpdateAllPlayerStatus();
     }
     void UpdateAllPlayerStatus()
     {
@@ -198,6 +200,7 @@ public class PlayerCharacter : Character
         atk = baseAtk + AtkPoint * 10;
         moveSpeedMultiplier = 1 + (MovementPoint / 10);
         moveSpeed = baseMovement * moveSpeedMultiplier;
+        combatScore = (HpPoint * 10) + (AtkPoint * 10) + (MovementPoint * 2);
     }
 
     public bool ResetStatus()

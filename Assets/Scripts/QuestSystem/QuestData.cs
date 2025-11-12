@@ -13,6 +13,7 @@ public class QuestData : ScriptableObject
     [Header("Requirements")]
     public int playerLevel;
     public int combatScore;
+    public bool isPrerequisiteQuest;
     public QuestData prerequisiteQuest;
 
     [Header("Objectives")]

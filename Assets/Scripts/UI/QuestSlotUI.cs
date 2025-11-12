@@ -15,9 +15,11 @@ public class QuestSlotUI : MonoBehaviour
     public Button cancelButton;
 
     private QuestData questData;
+    private PlayerCharacter playerCharacter;
 
     private void Start()
     {
+        playerCharacter = GameObject.Find("Player").GetComponent<PlayerCharacter>();
         UpdateButtonState();
     }
 
@@ -47,6 +49,13 @@ public class QuestSlotUI : MonoBehaviour
     public void UpdateButtonState()
     {
         bool hasQuest = QuestManager.Instance.HasActiveQuest();
+        bool requirement = (playerCharacter.Level >= questData.playerLevel ||
+            playerCharacter.CombatScore >= questData.combatScore);
+        if(questData.isPrerequisiteQuest)
+        {
+
+        }
+
 
         if (!hasQuest)
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
     public QuestProgress currentQuest; // only 1 quest can be accept
-
+    public List<QuestData> completedQuests = new List<QuestData>();
     private PlayerCharacter player;
 
     private static QuestManager instance;
@@ -39,11 +39,11 @@ public class QuestManager : MonoBehaviour
         Debug.Log($"Accepted quest: {quest.questName}");
     }
 
-    public void ReportProgress(string targetID, QuestObjectiveType type)
+    public void ReportProgress(string targetName, QuestObjectiveType type)
     {
         if (currentQuest == null) return;
 
-        currentQuest.AddProgress(targetID, type);
+        currentQuest.AddProgress(targetName, type);
     }
 
     public void ClaimReward()
@@ -65,14 +65,15 @@ public class QuestManager : MonoBehaviour
             Debug.Log("Reward already claimed!");
             return;
         }
-
+        QuestData completedQuest = currentQuest.questData;
+        completedQuests.Add(completedQuest);
         player.AddExperience(currentQuest.questData.expReward);
         player.AddGold(currentQuest.questData.goldReward);
         currentQuest.isClaimed = true;
 
         Debug.Log($"Claimed reward: +{currentQuest.questData.expReward} EXP, +{currentQuest.questData.goldReward} Gold");
 
-        // เควสจบแล้ว ล้างออก
+        // finish quest -> clear
         currentQuest = null;
     }
 
