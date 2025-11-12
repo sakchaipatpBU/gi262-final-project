@@ -35977,8 +35977,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1258791664}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+      - m_Target: {fileID: 1485383426}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OnResetClicked
         m_Mode: 1
         m_Arguments:
@@ -47625,7 +47625,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentQuest:
     questData: {fileID: 0}
-    currentProgress: 
     _currentProgress: 0
     isCompleted: 0
     isClaimed: 0

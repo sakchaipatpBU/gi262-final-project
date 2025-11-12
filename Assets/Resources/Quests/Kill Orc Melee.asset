@@ -16,6 +16,7 @@ MonoBehaviour:
   questIcon: {fileID: 5717584393450056696, guid: d3df8c8b3a27b8b44a8117d2f0e38800, type: 3}
   playerLevel: 1
   combatScore: 10
+  isPrerequisiteQuest: 0
   prerequisiteQuest: {fileID: 0}
   objectives:
   - type: 0
