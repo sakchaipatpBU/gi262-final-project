@@ -8,7 +8,10 @@ public class QuestUIManager : MonoBehaviour
     [Header("UI References")]
     public Transform contentParent;  // Content in ScrollView
     public GameObject questSlotPrefab;
-    public GameObject questBoard;
+    public GameObject questBoardPanel; // parent of all UI
+    public GameObject questTrackingUIPanel;
+    public QuestProgress currentQuest;
+    public QuestTrackingUI questTrackingUI;
 
     private List<QuestData> allQuests = new List<QuestData>();
     private List<QuestSlotUI> allQuestsOnBoard = new List<QuestSlotUI>();
@@ -31,10 +34,21 @@ public class QuestUIManager : MonoBehaviour
         questBoardNPC = GameObject.Find("QuestBoardNPC").GetComponent<QuestBoardNPC>();
         LoadAllQuests();
         GenerateQuestListUI();
-        questBoard.SetActive(false);
+        questBoardPanel.SetActive(false);
     }
     private void Update()
     {
+        if(currentQuest != null && currentQuest.questData != null)
+        {
+            questTrackingUI.Initialize(currentQuest);
+            questTrackingUIPanel.SetActive(true);
+        }
+        else
+        {
+            questTrackingUIPanel.SetActive(false);
+            currentQuest = QuestManager.Instance.currentQuest;
+        }
+
         canDisplay = questBoardNPC.canOpenQuestBoardUI;
         if (questAction.triggered)
         {
@@ -42,12 +56,12 @@ public class QuestUIManager : MonoBehaviour
             {
                 isDisplay = true;
                 UpdateAllQuestSlot();
-                questBoard.SetActive(true);
+                questBoardPanel.SetActive(true);
             }
             else if (canDisplay && isDisplay)
             {
                 isDisplay = false;
-                questBoard.SetActive(false);
+                questBoardPanel.SetActive(false);
             }
         }
     }
@@ -87,11 +101,17 @@ public class QuestUIManager : MonoBehaviour
     public void CloseBoardQuest()
     {
         isDisplay = false;
-        questBoard.SetActive(false);
+        questBoardPanel.SetActive(false);
     }
 
     public void OnExitQuestBoardButtonClicked()
     {
         isDisplay = false;
+    }
+
+    public void CancelQuestByQuestTrackingUI()
+    {
+        currentQuest = null;
+        QuestManager.Instance.CancelQuest();
     }
 }
