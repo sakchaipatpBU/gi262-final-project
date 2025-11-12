@@ -17,6 +17,7 @@ public abstract class EnemyCharacter : Character
     [Header("Animation")]
     [SerializeField] protected string currentAnimName;
     protected Coroutine attackCoroutine;
+    protected Coroutine getHitCoroutine;
     protected Coroutine dieCoroutine;
 
     public override void Start()
@@ -64,7 +65,16 @@ public abstract class EnemyCharacter : Character
             Dead();
             return true;
         }
-        SetAnimation(getHitAnimName);
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+        }
+        if (getHitCoroutine != null)
+        {
+            StopCoroutine(getHitCoroutine);
+        }
+        getHitCoroutine = StartCoroutine(GetHitCoroutine());
+
         return false;
     }
     public override void Dead()
@@ -88,6 +98,12 @@ public abstract class EnemyCharacter : Character
         SetAnimation(deadAnimName);
 
         dieCoroutine = StartCoroutine(DieCoroutine());
+    }
+    protected IEnumerator GetHitCoroutine()
+    {
+        SetAnimation(getHitAnimName);
+        yield return new WaitForSeconds(0.5f);
+        SetAnimation(idleAnimName);
     }
     protected IEnumerator DieCoroutine()
     {

@@ -83,7 +83,7 @@ public class PlayerCharacter : Character
         hp = 0;
         Debug.Log($"{characterName} is dead!");
         playerController.DeadAnimation();
-
+        GameManager.Instance.GaveOver();
         // to-do add effect
     }
     public void AddGold(int g)

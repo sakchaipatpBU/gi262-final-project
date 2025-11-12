@@ -3,13 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    public PlayerCharacter player;
     public string scene1;
     public string scene2;
 
     private void Start()
     {
-        player = GameObject.Find("Player").GetComponent<PlayerCharacter>();
+
     }
     public void LoadCurrentScene()
     {
@@ -21,12 +20,5 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public void OnSaveClicked()
-    {
-        SaveGame.SavePlayerData(player);
-    }
-    public void OnResetClicked()
-    {
-        SaveGame.ClearAllData();
-    }
+    
 }
