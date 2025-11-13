@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +21,7 @@ public class QuestSlotUI : MonoBehaviour
     private void Start()
     {
         playerCharacter = GameObject.Find("Player").GetComponent<PlayerCharacter>();
-        UpdateButtonState();
+        //UpdateButtonState();
     }
 
     public void SetQuestData(QuestData data)
@@ -49,16 +50,38 @@ public class QuestSlotUI : MonoBehaviour
     public void UpdateButtonState()
     {
         bool hasQuest = QuestManager.Instance.HasActiveQuest();
-        bool requirement = (playerCharacter.Level >= questData.playerLevel ||
-            playerCharacter.CombatScore >= questData.combatScore);
-        if(questData.isPrerequisiteQuest)
-        {
-
-        }
-
-
+        
         if (!hasQuest)
         {
+            /*bool requirement = false;
+            if (playerCharacter.Level >= questData.playerLevel &&
+                playerCharacter.CombatScore >= questData.combatScore)
+            {
+                requirement = true;
+            }
+            *//*if (requirement && questData.isPrerequisiteQuest)
+            {
+                List<QuestData> completedQuests = new List<QuestData>();
+                completedQuests.AddRange(QuestManager.Instance.completedQuests);
+                foreach (var quest in completedQuests)
+                {
+                    if (quest == questData.prerequisiteQuest)
+                    {
+                        requirement = true;
+                        break;
+                    }
+                    requirement = false;
+                }
+            }*//*
+            if (!requirement)
+            {
+                // Not reach Requirement
+                acceptButton.gameObject.SetActive(false);
+                claimButton.gameObject.SetActive(false);
+                cancelButton.gameObject.SetActive(false);
+                return;
+            }*/
+
             // No quest → accept only
             acceptButton.gameObject.SetActive(true);
             claimButton.gameObject.SetActive(false);

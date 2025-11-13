@@ -17,7 +17,7 @@ public class QuestData : ScriptableObject
     public QuestData prerequisiteQuest;
 
     [Header("Objectives")]
-    public QuestObjective[] objectives; // old
+    //public QuestObjective[] objectives; // old
     public QuestObjective objective;    // new
 
     [Header("Rewards")]

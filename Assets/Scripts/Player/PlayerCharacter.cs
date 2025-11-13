@@ -1,9 +1,7 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerCharacter : Character
 {
@@ -109,6 +107,7 @@ public class PlayerCharacter : Character
         {
             level++;
             statusPoint++;
+            statusPointLeft++;
             currentExp -= expToNextLevel;
             expToNextLevel = CalculateExpForLevel(level + 1);
             Console.WriteLine($"Player leveled up to Level {level}!");
@@ -207,6 +206,7 @@ public class PlayerCharacter : Character
     {
         if (gold < CalculateResetPrice()) return false;
 
+        gold -= CalculateResetPrice();
         StatusPointLeft = StatusPoint;
         int hpRefund = CalculateUpgradePrice(1, HpPoint);
         int atkRefund = CalculateUpgradePrice(1, AtkPoint);
@@ -226,6 +226,11 @@ public class PlayerCharacter : Character
         int value = StatusPoint - StatusPointLeft;
         int cal = value * 50;
         return cal;
+    }
+    public void GainHp(int _hp)
+    {
+        hp += _hp;
+        if(hp > maxHp) hp = maxHp;
     }
     #endregion
 

@@ -6,7 +6,7 @@ public class QuestProgress
 {
     public QuestData questData;
     //public int[] currentProgress;
-    public int _currentProgress; // -> 1 objective
+    public int currentProgress; // -> 1 objective
     public bool isCompleted;
     public bool isClaimed;
 
@@ -14,7 +14,7 @@ public class QuestProgress
     {
         questData = data;
         //currentProgress = new int[data.objectives.Length];
-        _currentProgress = 0; // -> 1 objective
+        currentProgress = 0; // -> 1 objective
         isCompleted = false;
         isClaimed = false;
     }
@@ -40,11 +40,11 @@ public class QuestProgress
         var objective = questData.objective;
         if (objective.type == type && objective.targetName == _targetName)
         {
-            _currentProgress++;
-            if (_currentProgress >= objective.requiredAmount)
-                _currentProgress = objective.requiredAmount;
+            currentProgress++;
+            if (currentProgress >= objective.requiredAmount)
+                currentProgress = objective.requiredAmount;
 
-            Debug.Log($"Quest {questData.questName} progress: ({_currentProgress}/{objective.requiredAmount})");
+            Debug.Log($"Quest {questData.questName} progress: ({currentProgress}/{objective.requiredAmount})");
         }
 
         CheckIfCompleted();
@@ -58,7 +58,7 @@ public class QuestProgress
                 return;
         }*/
 
-        if (_currentProgress < questData.objective.requiredAmount) return; // -> 1 objective
+        if (currentProgress < questData.objective.requiredAmount) return; // -> 1 objective
         isCompleted = true;
         Debug.Log($"Quest '{questData.questName}' completed!");
     }

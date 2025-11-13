@@ -25,15 +25,15 @@ public class QuestTrackingUI : MonoBehaviour
     {
         if (currentQuest != null && currentQuest.questData != null)
         {
-            progresText.text = $"{currentQuest._currentProgress}/{currentQuest.questData.objective.requiredAmount}";
+            progresText.text = $"{currentQuest.currentProgress}/{currentQuest.questData.objective.requiredAmount}";
         }
 
     }
     void SetupUI()
     {
         questNameText.text = currentQuest.questData.questName;
-        progresText.text = $"{currentQuest._currentProgress}/{currentQuest.questData.objective.requiredAmount}";
-        progressBarImage.fillAmount = (float)(currentQuest._currentProgress / currentQuest.questData.objective.requiredAmount);
+        progresText.text = $"{currentQuest.currentProgress}/{currentQuest.questData.objective.requiredAmount}";
+        progressBarImage.fillAmount = (float)(currentQuest.currentProgress / currentQuest.questData.objective.requiredAmount);
     }
 
     public void OnCancelQuestButtonClicked()

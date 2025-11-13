@@ -89,6 +89,7 @@ public abstract class EnemyCharacter : Character
 
         playerCharacter.AddExperience(expDrop);
         playerCharacter.AddGold(goldDrop);
+        playerCharacter.GainHp(50);
 
         // quest progress
         QuestManager.Instance.ReportProgress(characterName, QuestObjectiveType.Kill);
