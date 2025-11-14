@@ -52,15 +52,23 @@ public class PlayerCharacter : Character
     [SerializeField] private float baseAtk;
     [SerializeField] private float baseMovement;
 
+    private void Awake()
+    {
+        playerController = gameObject.GetComponent<PlayerController>();
+
+    }
     public override void Start()
     {
         base.Start();
-        playerController = gameObject.GetComponent<PlayerController>();
 
         SaveGame.LoadPlayerData(this);
         UpdateAllPlayerStatus();
-    }
 
+    }
+    public void Init()
+    {
+
+    }
     public override bool TakeDamage(float damage)
     {
         if (isDead) return true;
@@ -197,7 +205,7 @@ public class PlayerCharacter : Character
         maxHp = baseMaxHp + HpPoint * 10;
         if(hp > maxHp) hp = maxHp;
         atk = baseAtk + AtkPoint * 10;
-        moveSpeedMultiplier = 1 + (MovementPoint / 10);
+        moveSpeedMultiplier = 1 + ((float)MovementPoint / 2);
         moveSpeed = baseMovement * moveSpeedMultiplier;
         combatScore = (HpPoint * 10) + (AtkPoint * 10) + (MovementPoint * 2);
     }

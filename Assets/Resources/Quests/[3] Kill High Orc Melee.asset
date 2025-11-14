@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ac080a716e8134784e5947d0e1a2e9, type: 3}
   m_Name: '[3] Kill High Orc Melee'
   m_EditorClassIdentifier: 
-  questName: Kill High Orc Melee
+  questName: '[3] Kill High Orc Melee'
   questIcon: {fileID: 21300000, guid: 30ad667f6387e7b46b0f51abf01df001, type: 3}
-  playerLevel: 1
-  combatScore: 10
+  playerLevel: 10
+  combatScore: 70
   isPrerequisiteQuest: 0
   prerequisiteQuest: {fileID: 0}
   objective:

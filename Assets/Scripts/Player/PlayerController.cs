@@ -44,15 +44,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private List<EnemyCharacter> enemies = new List<EnemyCharacter>();
     private Coroutine attackCooldownCoroutine;
 
-
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerCharacter = gameObject.GetComponent<PlayerCharacter>();
         animator = GetComponent<Animator>();
         moveAction = InputSystem.actions.FindAction("Move");
         attackAction = InputSystem.actions.FindAction("Attack");
-        
+
+    }
+    private void Start()
+    {
         attackCooldownTime = animator.runtimeAnimatorController
             .animationClips.First(c => c.name
             .StartsWith("Human_Attack")).length;
@@ -78,10 +80,6 @@ public class PlayerController : MonoBehaviour
         SetAnimation(idleAnimName);
 
         FindAllEnemyInScene();
-    }
-    private void Update()
-    {
-        
     }
     private void OnDisable()
     {

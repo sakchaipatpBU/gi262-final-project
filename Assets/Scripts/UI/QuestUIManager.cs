@@ -27,11 +27,13 @@ public class QuestUIManager : MonoBehaviour
     {
         if(instance == null) instance = this;
         else Destroy(gameObject);
+
+        questAction = InputSystem.actions.FindAction("Interact");
+        questBoardNPC = GameObject.Find("QuestBoardNPC").GetComponent<QuestBoardNPC>(); ////////
+
     }
     private void Start()
     {
-        questAction = InputSystem.actions.FindAction("Interact");
-        questBoardNPC = GameObject.Find("QuestBoardNPC").GetComponent<QuestBoardNPC>();
         LoadAllQuests();
         GenerateQuestListUI();
         questBoardPanel.SetActive(false);
@@ -49,14 +51,15 @@ public class QuestUIManager : MonoBehaviour
             currentQuest = QuestManager.Instance.currentQuest;
         }
 
+        if(questBoardNPC == null) return;
         canDisplay = questBoardNPC.canOpenQuestBoardUI;
         if (questAction.triggered)
         {
             if(canDisplay && !isDisplay)
             {
                 isDisplay = true;
-                UpdateAllQuestSlot();
                 questBoardPanel.SetActive(true);
+                UpdateAllQuestSlot();
             }
             else if (canDisplay && isDisplay)
             {
@@ -101,6 +104,7 @@ public class QuestUIManager : MonoBehaviour
     public void CloseBoardQuest()
     {
         isDisplay = false;
+        if (questBoardPanel != null)
         questBoardPanel.SetActive(false);
     }
 

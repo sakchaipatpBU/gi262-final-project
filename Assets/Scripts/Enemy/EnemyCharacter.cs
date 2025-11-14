@@ -19,13 +19,14 @@ public abstract class EnemyCharacter : Character
     protected Coroutine attackCoroutine;
     protected Coroutine getHitCoroutine;
     protected Coroutine dieCoroutine;
-
+    private void Awake()
+    {
+        playerCharacter = GameObject.Find("Player").GetComponent<PlayerCharacter>();
+        playerController = playerCharacter.gameObject.GetComponent<PlayerController>();
+    }
     public override void Start()
     {
         base.Start();
-        playerCharacter = GameObject.Find("Player").GetComponent<PlayerCharacter>();
-        playerController = playerCharacter.gameObject.GetComponent<PlayerController>();
-        animator = gameObject.GetComponent<Animator>();
     }
     private void Update()
     {

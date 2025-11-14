@@ -32,15 +32,12 @@ public abstract class Character : MonoBehaviour
     public int attackDirection = 1;
     public int hitDirection = 1;
 
-    private void Awake()
+    public virtual void Start()
     {
         hp = maxHp;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-    }
-    public virtual void Start()
-    {
-        
+
     }
 
     public abstract bool TakeDamage(float damage);

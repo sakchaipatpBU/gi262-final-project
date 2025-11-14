@@ -96,7 +96,7 @@ public class QuestSlotUI : MonoBehaviour
                 return;
             }
 
-            if (currentQuest.questData == questData)
+            if (currentQuest.questData.questName == questData.questName)
             {
                 if (currentQuest.isCompleted && !currentQuest.isClaimed)
                 {

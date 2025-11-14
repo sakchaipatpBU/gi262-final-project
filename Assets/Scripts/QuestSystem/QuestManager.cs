@@ -19,16 +19,30 @@ public class QuestManager : MonoBehaviour
 
     private void Start()
     {
-        player = FindAnyObjectByType<PlayerCharacter>();
+        Debug.Log("QuestManager Start");
+        //player = FindAnyObjectByType<PlayerCharacter>();
     }
-
+    public void Init(PlayerCharacter _player)
+    {
+        player = _player;
+    }
     public bool HasActiveQuest()
     {
-        return currentQuest != null && !currentQuest.isCompleted && !currentQuest.isClaimed;
+        //if(currentQuest != null )
+        if (currentQuest == null) return false;
+        Debug.Log($"currentQuest.isCompleted {currentQuest.isCompleted}");
+        Debug.Log($"currentQuest.isClaimed {currentQuest.isClaimed}");
+        Debug.Log($"currentQuest.currentProgress {currentQuest.currentProgress}");
+        return (currentQuest != null && !currentQuest.isCompleted && !currentQuest.isClaimed) || 
+            (currentQuest.currentProgress != 0 && currentQuest.isCompleted);
     }
 
     public void AcceptQuest(QuestData quest)
     {
+        if (HasActiveQuest())
+        {
+            Debug.LogWarning($"HasActiveQuest");
+        }
         if (HasActiveQuest())
         {
             Debug.LogWarning($"You already have an active quest: {currentQuest.questData.questName}. Cancel it first!");

@@ -21,10 +21,9 @@ public class PortalGate : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            if(selectMapUI != null)
             selectMapUI.SetActive(false);
         }
     }
-
-    
 }
 
