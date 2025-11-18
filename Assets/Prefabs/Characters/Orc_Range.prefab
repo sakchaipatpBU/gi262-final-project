@@ -159,6 +159,7 @@ MonoBehaviour:
   lastAttackTime: 0
   expDrop: 55
   goldDrop: 25
+  hpDrop: 10
   currentAnimName: 
   projectilePrefab: {fileID: 4282603654676423319, guid: fe61d546bff13494eb510e51f9b9c429, type: 3}
   firePoint: {fileID: 9001229782343441464}

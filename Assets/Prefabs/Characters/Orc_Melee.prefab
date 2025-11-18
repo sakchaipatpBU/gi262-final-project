@@ -158,6 +158,7 @@ MonoBehaviour:
   lastAttackTime: 0
   expDrop: 55
   goldDrop: 25
+  hpDrop: 30
   currentAnimName: 
 --- !u!212 &4900820902187280479
 SpriteRenderer:

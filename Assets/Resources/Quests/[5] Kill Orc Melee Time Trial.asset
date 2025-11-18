@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: '[5] Kill Orc Melee Time Trial'
   m_EditorClassIdentifier: 
   questName: '[5] Kill Orc Melee Time Trial'
-  questIcon: {fileID: 21300000, guid: 30ad667f6387e7b46b0f51abf01df001, type: 3}
-  questType: 1
-  playerLevel: 1
-  combatScore: 0
-  isPrerequisiteQuest: 0
-  prerequisiteQuest: {fileID: 0}
+  questIcon: {fileID: 21300000, guid: 42d5f472c4ccadf409a6827bd5d70cb1, type: 3}
+  questType: 0
+  playerLevel: 7
+  combatScore: 50
+  isPrerequisiteQuest: 1
+  prerequisiteQuest: {fileID: 11400000, guid: 9b5471b3e7b44a04293c0c1f2dc29345, type: 2}
   objective:
     type: 0
     targetName: Orc Melee
     requiredAmount: 5
-  questTimeLimit: 60
+  questTimeLimit: 80
   expReward: 800
   goldReward: 1000
