@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ac080a716e8134784e5947d0e1a2e9, type: 3}
   m_Name: '[6] Rush Down the Ranged'
   m_EditorClassIdentifier: 
-  questName: '[6] Kill Orc Range Time Trial'
+  questName: '[6] Rush Down the Ranged'
   questIcon: {fileID: 21300000, guid: 68da33eb0ebf0ec43b0b9dd0fb5e1815, type: 3}
   questType: 1
   playerLevel: 7

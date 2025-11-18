@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ac080a716e8134784e5947d0e1a2e9, type: 3}
   m_Name: '[1] Suppress the Hydro-Orcs'
   m_EditorClassIdentifier: 
-  questName: '[1] Kill Orc Range'
+  questName: '[1] Suppress the Hydro-Orcs'
   questIcon: {fileID: 21300000, guid: 67b1121c879a9164e955a11bb27740f9, type: 3}
   questType: 0
   playerLevel: 1

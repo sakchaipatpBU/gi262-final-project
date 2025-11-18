@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ac080a716e8134784e5947d0e1a2e9, type: 3}
   m_Name: '[8] Total Annihilation'
   m_EditorClassIdentifier: 
-  questName: '[8] Kill All Orc Melee'
+  questName: '[8] Total Annihilation'
   questIcon: {fileID: 21300000, guid: 30ad667f6387e7b46b0f51abf01df001, type: 3}
   questType: 0
   playerLevel: 12

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ac080a716e8134784e5947d0e1a2e9, type: 3}
   m_Name: '[5] Trial by Combat Clock'
   m_EditorClassIdentifier: 
-  questName: '[5] Kill Orc Melee Time Trial'
+  questName: '[5] Trial by Combat Clock'
   questIcon: {fileID: 21300000, guid: 42d5f472c4ccadf409a6827bd5d70cb1, type: 3}
   questType: 0
   playerLevel: 7

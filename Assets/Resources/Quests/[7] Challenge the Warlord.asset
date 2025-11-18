@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ac080a716e8134784e5947d0e1a2e9, type: 3}
   m_Name: '[7] Challenge the Warlord'
   m_EditorClassIdentifier: 
-  questName: '[7] Kill High Orc Melee'
+  questName: '[7] Challenge the Warlord'
   questIcon: {fileID: 21300000, guid: 321aa616e5349b14ab33e0db387dfe94, type: 3}
   questType: 0
   playerLevel: 10

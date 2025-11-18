@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ac080a716e8134784e5947d0e1a2e9, type: 3}
   m_Name: '[3] The Messenger''s Task'
   m_EditorClassIdentifier: 
-  questName: '[3] Talk with Robert'
+  questName: '[3] The Messenger''s Task'
   questIcon: {fileID: 21300000, guid: 424649882ca84224ca324bc3a313cd7e, type: 3}
   questType: 0
   playerLevel: 5
