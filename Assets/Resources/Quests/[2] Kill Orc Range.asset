@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questName: '[2] Kill Orc Range'
   questIcon: {fileID: 21300000, guid: 30ad667f6387e7b46b0f51abf01df001, type: 3}
+  questType: 0
   playerLevel: 1
   combatScore: 10
   isPrerequisiteQuest: 0
@@ -22,5 +23,6 @@ MonoBehaviour:
     type: 0
     targetName: Orc Range
     requiredAmount: 5
+  questTimeLimit: 0
   expReward: 300
   goldReward: 500

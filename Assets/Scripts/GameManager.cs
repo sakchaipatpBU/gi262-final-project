@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public bool isGameOver = false;
     public GameObject gameOverPanel;
     public PlayerCharacter player;
 
@@ -31,7 +32,9 @@ public class GameManager : MonoBehaviour
     public void GaveOver()
     {
         gameOverPanel.SetActive(true);
-
+        player.gameObject.GetComponent<PlayerController>().enabled = false;
+        player.enabled = false;
+        isGameOver = true;
     }
 
     public void OnSaveClicked()

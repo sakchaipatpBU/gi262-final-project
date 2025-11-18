@@ -1,4 +1,9 @@
 using UnityEngine;
+public enum QuestType
+{
+    Normal,
+    TimeTrail
+}
 
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Quest System/Quest Data")]
 public class QuestData : ScriptableObject
@@ -6,9 +11,7 @@ public class QuestData : ScriptableObject
     [Header("Quest Info")]
     public string questName;
     public Sprite questIcon;
-
-    //public string questID;
-    //[TextArea] public string questDescription;
+    public QuestType questType;
 
     [Header("Requirements")]
     public int playerLevel;
@@ -17,8 +20,8 @@ public class QuestData : ScriptableObject
     public QuestData prerequisiteQuest;
 
     [Header("Objectives")]
-    //public QuestObjective[] objectives; // old
-    public QuestObjective objective;    // new
+    public QuestObjective objective;
+    public float questTimeLimit;
 
     [Header("Rewards")]
     public int expReward;

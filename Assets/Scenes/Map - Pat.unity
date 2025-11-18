@@ -9585,8 +9585,8 @@ Tilemap:
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -24, y: -12, z: 0}
-  m_Size: {x: 42, y: 24, z: 1}
+  m_Origin: {x: -29, y: -12, z: 0}
+  m_Size: {x: 47, y: 24, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -11348,7 +11348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &526939020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12506,6 +12506,22 @@ PrefabInstance:
     - target: {fileID: 1627849328275413430, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325504109333578185, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325504109333578185, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325504109333578185, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325504109333578185, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294901760
       objectReference: {fileID: 0}
     - target: {fileID: 2363022430904786705, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
       propertyPath: m_AnchorMax.y
@@ -47238,6 +47254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d054ede5deb2d4e8771264e2004378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCharacter: {fileID: 1234304037}
 --- !u!4 &1871570375
 Transform:
   m_ObjectHideFlags: 0

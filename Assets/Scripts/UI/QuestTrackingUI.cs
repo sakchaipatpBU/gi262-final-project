@@ -16,11 +16,6 @@ public class QuestTrackingUI : MonoBehaviour
         SetupUI();
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         if (currentQuest != null && currentQuest.questData != null)
@@ -33,7 +28,8 @@ public class QuestTrackingUI : MonoBehaviour
     {
         questNameText.text = currentQuest.questData.questName;
         progresText.text = $"{currentQuest.currentProgress}/{currentQuest.questData.objective.requiredAmount}";
-        progressBarImage.fillAmount = (float)(currentQuest.currentProgress / currentQuest.questData.objective.requiredAmount);
+        progressBarImage.fillAmount = (float)currentQuest.currentProgress /
+            (float)currentQuest.questData.objective.requiredAmount;
     }
 
     public void OnCancelQuestButtonClicked()

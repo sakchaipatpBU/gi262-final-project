@@ -17,11 +17,9 @@ public class QuestSlotUI : MonoBehaviour
 
     private QuestData questData;
     private PlayerCharacter playerCharacter;
-
-    private void Start()
+    private void Awake()
     {
         playerCharacter = GameObject.Find("Player").GetComponent<PlayerCharacter>();
-        //UpdateButtonState();
     }
 
     public void SetQuestData(QuestData data)
@@ -32,6 +30,10 @@ public class QuestSlotUI : MonoBehaviour
         icon.sprite = questData.questIcon;
         questNameText.text = questData.questName;
         requireAmountText.text = $"Amount: {questData.objective.requiredAmount}";
+        if(questData.questType == QuestType.TimeTrail)
+        {
+            requireAmountText.text += $" , Time : {questData.questTimeLimit} Second";
+        }
         requirementText.text = $"Requirements: Level {questData.playerLevel} , CP {questData.combatScore}";
         if(questData.prerequisiteQuest != null)
         {
@@ -53,26 +55,21 @@ public class QuestSlotUI : MonoBehaviour
         
         if (!hasQuest)
         {
-            /*bool requirement = false;
+            if(playerCharacter == null)
+            {
+                playerCharacter = GameObject.Find("Player").GetComponent<PlayerCharacter>();
+                Debug.Log("QuestSlotUI GameObject.Find(\"Player\").GetComponent<PlayerCharacter>();");
+            }
+            bool requirement = false;
             if (playerCharacter.Level >= questData.playerLevel &&
                 playerCharacter.CombatScore >= questData.combatScore)
             {
                 requirement = true;
             }
-            *//*if (requirement && questData.isPrerequisiteQuest)
+            if (requirement && questData.isPrerequisiteQuest)
             {
-                List<QuestData> completedQuests = new List<QuestData>();
-                completedQuests.AddRange(QuestManager.Instance.completedQuests);
-                foreach (var quest in completedQuests)
-                {
-                    if (quest == questData.prerequisiteQuest)
-                    {
-                        requirement = true;
-                        break;
-                    }
-                    requirement = false;
-                }
-            }*//*
+                requirement = CheckPrerequisiteQuest();
+            }
             if (!requirement)
             {
                 // Not reach Requirement
@@ -80,7 +77,7 @@ public class QuestSlotUI : MonoBehaviour
                 claimButton.gameObject.SetActive(false);
                 cancelButton.gameObject.SetActive(false);
                 return;
-            }*/
+            }
 
             // No quest → accept only
             acceptButton.gameObject.SetActive(true);
@@ -127,6 +124,20 @@ public class QuestSlotUI : MonoBehaviour
             }
         }
     }
+    private bool CheckPrerequisiteQuest()
+    {
+        if (QuestManager.Instance.completedQuests.Count == 0) return false;
+
+        foreach (var quest in QuestManager.Instance.completedQuests)
+        {
+            if (quest == questData.prerequisiteQuest)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void AcceptQuest()
     {
         QuestManager.Instance.AcceptQuest(questData);

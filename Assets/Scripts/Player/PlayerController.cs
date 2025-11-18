@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float directionX;
     [SerializeField] private float directionY;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float moveSpeedMultiplier;
     [SerializeField] private float smoothTime = 0.1f;
 
     [SerializeField] private Vector2 moveDirection;
@@ -60,7 +59,6 @@ public class PlayerController : MonoBehaviour
             .StartsWith("Human_Attack")).length;
 
         moveSpeed = playerCharacter.MoveSpeed;
-        moveSpeedMultiplier = playerCharacter.MoveSpeedMultiplier;
 
         // setup animatiaon
         idleAnimName = playerCharacter.idleAnimName;
@@ -156,7 +154,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            animator.SetFloat("Speed", moveSpeedMultiplier);
+            animator.SetFloat("Speed", moveSpeed);
         }
 
         // x axis moving
@@ -174,7 +172,7 @@ public class PlayerController : MonoBehaviour
                 directionX = -1;
             }
 
-            targetVelocity.x = moveDirection.x * moveSpeed * moveSpeedMultiplier;
+            targetVelocity.x = moveDirection.x * moveSpeed;
 
 
         }
@@ -197,7 +195,7 @@ public class PlayerController : MonoBehaviour
                 directionY = -1;
             }
 
-            targetVelocity.y = moveDirection.y * moveSpeed * moveSpeedMultiplier;
+            targetVelocity.y = moveDirection.y * moveSpeed;
         }
         else // not walk on Y axis -> look down
         {
@@ -361,8 +359,8 @@ public class PlayerController : MonoBehaviour
         enemies = FindObjectsByType<EnemyCharacter>(FindObjectsSortMode.None).ToList();
     }
 
-    public void UpdateMoveSpeedMultiplier()
+    public void UpdateMoveSpeed()
     {
-        moveSpeedMultiplier = playerCharacter.MoveSpeedMultiplier;
+        moveSpeed = playerCharacter.MoveSpeed;
     }
 }

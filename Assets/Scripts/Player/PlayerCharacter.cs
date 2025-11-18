@@ -44,7 +44,6 @@ public class PlayerCharacter : Character
         set
         {
             moveSpeedMultiplier = value; // ex. 1.1 , 1.25 , 2.5
-            playerController.UpdateMoveSpeedMultiplier();
         }
     }
 
@@ -205,8 +204,9 @@ public class PlayerCharacter : Character
         maxHp = baseMaxHp + HpPoint * 10;
         if(hp > maxHp) hp = maxHp;
         atk = baseAtk + AtkPoint * 10;
-        moveSpeedMultiplier = 1 + ((float)MovementPoint / 2);
+        MoveSpeedMultiplier = 1 + ((float)MovementPoint / 10);
         moveSpeed = baseMovement * moveSpeedMultiplier;
+        playerController.UpdateMoveSpeed();
         combatScore = (HpPoint * 10) + (AtkPoint * 10) + (MovementPoint * 2);
     }
 

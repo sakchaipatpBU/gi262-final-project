@@ -10,8 +10,10 @@ public class QuestUIManager : MonoBehaviour
     public GameObject questSlotPrefab;
     public GameObject questBoardPanel; // parent of all UI
     public GameObject questTrackingUIPanel;
+    public GameObject questTimeTrailUIPanel;
     public QuestProgress currentQuest;
     public QuestTrackingUI questTrackingUI;
+    public QuestTimeTrailUI questTimeTrailUI;
 
     private List<QuestData> allQuests = new List<QuestData>();
     private List<QuestSlotUI> allQuestsOnBoard = new List<QuestSlotUI>();
@@ -40,15 +42,36 @@ public class QuestUIManager : MonoBehaviour
     }
     private void Update()
     {
-        if(currentQuest != null && currentQuest.questData != null)
+        if(QuestManager.Instance.HasActiveQuest())
         {
+            currentQuest = QuestManager.Instance.currentQuest;
             questTrackingUI.Initialize(currentQuest);
             questTrackingUIPanel.SetActive(true);
+
+            if(currentQuest.questData.questType == QuestType.TimeTrail
+                && questTimeTrailUI != null)
+            {
+                if (!questTimeTrailUI.isInit)
+                {
+                    questTimeTrailUI.Init(currentQuest);
+                    questTimeTrailUIPanel.SetActive(true);
+                }
+                if (currentQuest.isCompleted)
+                {
+                    questTimeTrailUIPanel.SetActive(false);
+                }
+            }
+
+
         }
         else
         {
             questTrackingUIPanel.SetActive(false);
-            currentQuest = QuestManager.Instance.currentQuest;
+
+            if (questTimeTrailUI != null)
+            {
+                questTimeTrailUIPanel.SetActive(false);
+            }
         }
 
         if(questBoardNPC == null) return;

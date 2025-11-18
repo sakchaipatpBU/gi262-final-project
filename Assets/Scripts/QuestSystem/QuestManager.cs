@@ -16,25 +16,27 @@ public class QuestManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
-
-    private void Start()
-    {
-        Debug.Log("QuestManager Start");
-        //player = FindAnyObjectByType<PlayerCharacter>();
-    }
     public void Init(PlayerCharacter _player)
     {
         player = _player;
     }
     public bool HasActiveQuest()
     {
-        //if(currentQuest != null )
-        if (currentQuest == null) return false;
-        Debug.Log($"currentQuest.isCompleted {currentQuest.isCompleted}");
-        Debug.Log($"currentQuest.isClaimed {currentQuest.isClaimed}");
-        Debug.Log($"currentQuest.currentProgress {currentQuest.currentProgress}");
-        return (currentQuest != null && !currentQuest.isCompleted && !currentQuest.isClaimed) || 
-            (currentQuest.currentProgress != 0 && currentQuest.isCompleted);
+        if(currentQuest == null)
+        {
+            return false;
+        }
+        else
+        {
+            if(currentQuest.questData == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 
     public void AcceptQuest(QuestData quest)
