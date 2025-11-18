@@ -61,11 +61,8 @@ public class PlayerCharacter : Character
         base.Start();
 
         SaveGame.LoadPlayerData(this);
+        expToNextLevel = CalculateExpForLevel(level + 1);
         UpdateAllPlayerStatus();
-
-    }
-    public void Init()
-    {
 
     }
     public override bool TakeDamage(float damage)

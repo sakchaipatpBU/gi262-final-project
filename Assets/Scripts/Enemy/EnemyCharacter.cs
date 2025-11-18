@@ -13,6 +13,7 @@ public abstract class EnemyCharacter : Character
 
     [SerializeField] protected int expDrop = 100;
     [SerializeField] protected int goldDrop = 10;
+    [SerializeField] protected int hpDrop = 50;
 
     [Header("Animation")]
     [SerializeField] protected string currentAnimName;
@@ -90,7 +91,7 @@ public abstract class EnemyCharacter : Character
 
         playerCharacter.AddExperience(expDrop);
         playerCharacter.AddGold(goldDrop);
-        playerCharacter.GainHp(50);
+        playerCharacter.GainHp(hpDrop);
 
         // quest progress
         QuestManager.Instance.ReportProgress(characterName, QuestObjectiveType.Kill);
