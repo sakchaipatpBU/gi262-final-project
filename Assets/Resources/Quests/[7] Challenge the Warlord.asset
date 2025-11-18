@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questName: '[7] Challenge the Warlord'
   questIcon: {fileID: 21300000, guid: 321aa616e5349b14ab33e0db387dfe94, type: 3}
-  questType: 0
+  questType: 1
   playerLevel: 10
   combatScore: 80
   isPrerequisiteQuest: 1
@@ -23,6 +23,6 @@ MonoBehaviour:
     type: 0
     targetName: High Orc Melee
     requiredAmount: 1
-  questTimeLimit: 80
+  questTimeLimit: 100
   expReward: 800
   goldReward: 1000

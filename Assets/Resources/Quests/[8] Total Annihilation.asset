@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questName: '[8] Total Annihilation'
   questIcon: {fileID: 21300000, guid: 30ad667f6387e7b46b0f51abf01df001, type: 3}
-  questType: 0
+  questType: 1
   playerLevel: 12
   combatScore: 80
   isPrerequisiteQuest: 1
