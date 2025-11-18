@@ -39,6 +39,10 @@ public class QuestUIManager : MonoBehaviour
         LoadAllQuests();
         GenerateQuestListUI();
         questBoardPanel.SetActive(false);
+        if(questTimeTrailUI != null)
+        {
+            questTimeTrailUIPanel.SetActive(true);
+        }
     }
     private void Update()
     {

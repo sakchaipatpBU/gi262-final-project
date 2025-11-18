@@ -216,11 +216,6 @@ public class PlayerCharacter : Character
 
         gold -= CalculateResetPrice();
         StatusPointLeft = StatusPoint;
-        int hpRefund = CalculateUpgradePrice(1, HpPoint);
-        int atkRefund = CalculateUpgradePrice(1, AtkPoint);
-        int movementRefund = CalculateUpgradePrice(1, MovementPoint);
-        int allRefund = hpRefund + atkRefund + movementRefund;
-        gold += allRefund;
         HpPoint = 0;
         AtkPoint = 0;
         MovementPoint = 0;
