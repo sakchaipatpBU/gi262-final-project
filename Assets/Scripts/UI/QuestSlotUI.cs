@@ -29,15 +29,19 @@ public class QuestSlotUI : MonoBehaviour
 
         icon.sprite = questData.questIcon;
         questNameText.text = questData.questName;
-        requireAmountText.text = $"Amount: {questData.objective.requiredAmount}";
-        if(questData.questType == QuestType.TimeTrail)
+        requireAmountText.text = $"{questData.objective.type} {questData.objective.requiredAmount} {questData.objective.targetName}";
+        if(questData.objective.type == QuestObjectiveType.Talk)
+        {
+            requireAmountText.text = $"{questData.objective.type} to {questData.objective.targetName}";
+        }
+        if (questData.questType == QuestType.TimeTrail)
         {
             requireAmountText.text += $" , Time : {questData.questTimeLimit} Second";
         }
         requirementText.text = $"Requirements: Level {questData.playerLevel} , CP {questData.combatScore}";
         if(questData.prerequisiteQuest != null)
         {
-            requirementText.text += $" Quest Require: {questData.prerequisiteQuest}";
+            requirementText.text += $" Quest Require: {questData.prerequisiteQuest.name}";
         }
         rewardText.text = $"Reward: {questData.goldReward} Coins / {questData.expReward} EXP";
 
