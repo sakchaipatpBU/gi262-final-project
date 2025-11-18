@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90ac080a716e8134784e5947d0e1a2e9, type: 3}
-  m_Name: '[3] Talk with Robert'
+  m_Name: '[2] Clash of Blades'
   m_EditorClassIdentifier: 
-  questName: '[3] Talk with Robert'
-  questIcon: {fileID: 21300000, guid: 424649882ca84224ca324bc3a313cd7e, type: 3}
+  questName: '[2] Kill Orc Melee'
+  questIcon: {fileID: 21300000, guid: 30ad667f6387e7b46b0f51abf01df001, type: 3}
   questType: 0
-  playerLevel: 5
+  playerLevel: 1
   combatScore: 0
   isPrerequisiteQuest: 0
   prerequisiteQuest: {fileID: 0}
   objective:
-    type: 2
-    targetName: Robert
-    requiredAmount: 1
+    type: 0
+    targetName: Orc Melee
+    requiredAmount: 3
   questTimeLimit: 0
-  expReward: 100
-  goldReward: 300
+  expReward: 300
+  goldReward: 500
