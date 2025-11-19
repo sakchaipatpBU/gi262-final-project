@@ -14,7 +14,6 @@ public class PlayerCharacter : Character
     public int Level { get { return level; } set { level = value; } }
     [SerializeField] private int expToNextLevel = 100;
     public int ExpToNextLevel { get { return expToNextLevel; } set { expToNextLevel = value; } }
-    private float levelUpMultiplier = 1.5f; // if want to scale lvl. with linear function
 
     [Header("Gold")]
     [SerializeField] private int gold = 0;
@@ -115,8 +114,6 @@ public class PlayerCharacter : Character
             currentExp -= expToNextLevel;
             expToNextLevel = CalculateExpForLevel(level + 1);
             Console.WriteLine($"Player leveled up to Level {level}!");
-
-            // TO-DO Trigger level-up effects, stat increases, etc.
         }
     }
     #endregion

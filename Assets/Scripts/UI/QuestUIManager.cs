@@ -65,8 +65,6 @@ public class QuestUIManager : MonoBehaviour
                     questTimeTrailUIPanel.SetActive(false);
                 }
             }
-
-
         }
         else
         {

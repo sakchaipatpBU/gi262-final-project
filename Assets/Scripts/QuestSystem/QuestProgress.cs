@@ -5,38 +5,23 @@ using UnityEngine;
 public class QuestProgress
 {
     public QuestData questData;
-    //public int[] currentProgress;
-    public int currentProgress; // -> 1 objective
+    public int currentProgress;
     public bool isCompleted;
     public bool isClaimed;
 
     public QuestProgress(QuestData data)
     {
         questData = data;
-        //currentProgress = new int[data.objectives.Length];
-        currentProgress = 0; // -> 1 objective
+        currentProgress = 0;
         isCompleted = false;
         isClaimed = false;
     }
 
     public void AddProgress(string _targetName, QuestObjectiveType type)
     {
+        if (questData == null) return;
         if (isCompleted) return;
 
-        /*for (int i = 0; i < questData.objectives.Length; i++)
-        {
-            var obj = questData.objectives[i];
-            if (obj.type == type && obj.targetName == _targetName)
-            {
-                currentProgress[i]++;
-                if (currentProgress[i] >= obj.requiredAmount)
-                    currentProgress[i] = obj.requiredAmount;
-
-                Debug.Log($"Quest {questData.questName} progress: ({currentProgress[i]}/{obj.requiredAmount})");
-            }
-        }*/
-
-        // -> 1 objective
         var objective = questData.objective;
         if (objective.type == type && objective.targetName == _targetName)
         {
@@ -52,12 +37,6 @@ public class QuestProgress
 
     public void CheckIfCompleted()
     {
-        /*for (int i = 0; i < questData.objectives.Length; i++)
-        {
-            if (currentProgress[i] < questData.objectives[i].requiredAmount)
-                return;
-        }*/
-
         if (currentProgress < questData.objective.requiredAmount) return; // -> 1 objective
         isCompleted = true;
         Debug.Log($"Quest '{questData.questName}' completed!");

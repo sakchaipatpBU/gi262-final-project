@@ -3,13 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    public string scene1;
-    public string scene2;
-
-    private void Start()
-    {
-
-    }
     public void LoadCurrentScene()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;

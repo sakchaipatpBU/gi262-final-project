@@ -62,7 +62,6 @@ public class QuestSlotUI : MonoBehaviour
             if(playerCharacter == null)
             {
                 playerCharacter = GameObject.Find("Player").GetComponent<PlayerCharacter>();
-                Debug.Log("QuestSlotUI GameObject.Find(\"Player\").GetComponent<PlayerCharacter>();");
             }
             bool requirement = false;
             if (playerCharacter.Level >= questData.playerLevel &&

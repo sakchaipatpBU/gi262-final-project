@@ -24,11 +24,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        
-    }
-
     public void GaveOver()
     {
         gameOverPanel.SetActive(true);

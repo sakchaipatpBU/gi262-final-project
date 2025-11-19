@@ -23,7 +23,6 @@ public abstract class Character : MonoBehaviour
 
     [Header("Animation")]
     public Animator animator;
-    //public string currentAnimName;
     public string idleAnimName = "Idle";
     public string attackAnimName = "Attack";
     public string walkAnimName = "Walking";

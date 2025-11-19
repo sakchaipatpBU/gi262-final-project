@@ -11,7 +11,7 @@ public class EnemyProjectile : MonoBehaviour
     {
         direction = dir;
         damage = dmg;
-        Destroy(gameObject, 5f); // bullet auto destroy
+        Destroy(gameObject, 5f); // auto destroy
     }
 
     void Update()

@@ -84,10 +84,8 @@ public abstract class EnemyCharacter : Character
         isDead = true;
         hp = 0;
         Debug.Log($"{characterName} is dead!");
-        // to-do add effect
 
         rb.linearVelocity = Vector2.zero;
-        // TO-DO add Effect drop item, gold / quest progress
 
         playerCharacter.AddExperience(expDrop);
         playerCharacter.AddGold(goldDrop);
