@@ -55,12 +55,6 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    /*public void StopMusic() => musicSource.Stop();
-
-    public void FadeMusic(float targetVolume, float duration)
-    {
-        StartCoroutine(FadeAudio(musicSource, targetVolume, duration));
-    }*/
 
     public void PlaySFX(string clipName, float volume = 1f, float pitch = 1f)
     {
@@ -87,27 +81,4 @@ public class SoundManager : MonoBehaviour
         PlaySFX("Click_UI", 0.3f);
     }
 
-
-    /*public void SetMusicVolume(float volume) => musicSource.volume = Mathf.Clamp01(volume);
-    public void SetSFXVolume(float volume)
-    {
-        sfxSourcePrefab.volume = Mathf.Clamp01(volume);
-    }*/
-
-
-
-    /*private System.Collections.IEnumerator FadeAudio(AudioSource source, float targetVolume, float duration)
-    {
-        float startVolume = source.volume;
-        float time = 0f;
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            source.volume = Mathf.Lerp(startVolume, targetVolume, time / duration);
-            yield return null;
-        }
-
-        source.volume = targetVolume;
-    }*/
 }
