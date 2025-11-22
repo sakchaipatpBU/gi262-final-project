@@ -85,11 +85,15 @@ public class QuestUIManager : MonoBehaviour
                 isDisplay = true;
                 questBoardPanel.SetActive(true);
                 UpdateAllQuestSlot();
+                SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
             }
             else if (canDisplay && isDisplay)
             {
                 isDisplay = false;
                 questBoardPanel.SetActive(false);
+                SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
             }
         }
     }
@@ -131,6 +135,8 @@ public class QuestUIManager : MonoBehaviour
         isDisplay = false;
         if (questBoardPanel != null)
         questBoardPanel.SetActive(false);
+        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
     }
 
     public void OnExitQuestBoardButtonClicked()

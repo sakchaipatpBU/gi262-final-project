@@ -119,6 +119,74 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &19726690
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 995320224392076326, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745639034840007165, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745639034840007165, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745639034840007165, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745639034840007165, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745639034840007165, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745639034840007165, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745639034840007165, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745639034840007165, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745639034840007165, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745639034840007165, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+--- !u!114 &19726691 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2080511730488892980, guid: 0184a81219befb14da0027a164bc6f86, type: 3}
+  m_PrefabInstance: {fileID: 19726690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6060e905020844286e07aa3fd969bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &21548452
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5011,6 +5079,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 19726691}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: OnPortalClicked_PlaySFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 105713997}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OnSaveClicked
@@ -5025,7 +5105,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1320351319}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: LoadSceneByName
+        m_MethodName: LoadSceneByName_Wait
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -32106,6 +32186,34 @@ PrefabInstance:
     - target: {fileID: 1627849328275413430, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306829199735449272, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306829199735449272, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306829199735449272, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 19726691}
+    - target: {fileID: 2306829199735449272, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306829199735449272, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnUIClicked_PlaySFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306829199735449272, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SoundManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306829199735449272, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2325504109333578185, guid: ced547ec21e91224090c5f1ca03f5157, type: 3}
       propertyPath: m_fontColor.b
@@ -79972,7 +80080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2092263167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80804,3 +80912,4 @@ SceneRoots:
   - {fileID: 125989116}
   - {fileID: 105713996}
   - {fileID: 136301260}
+  - {fileID: 19726690}

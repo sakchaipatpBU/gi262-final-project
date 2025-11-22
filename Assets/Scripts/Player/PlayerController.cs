@@ -137,8 +137,16 @@ public class PlayerController : MonoBehaviour
 
             SetAnimatorDirection(attackDirection);
             SetTriggerAnimation(attackAnimName);
-            AttackTarget();
+            bool isHitEnemy = AttackTarget();
+            if (isHitEnemy)
+            {
+                SoundManager.Instance.PlaySFX("Sword_Hit", 0.3f);
+            }
+            else
+            {
+                SoundManager.Instance.PlaySFX("Player_Sword_Swing", 0.3f);
 
+            }
 
             return;
         }
@@ -320,9 +328,10 @@ public class PlayerController : MonoBehaviour
         isActive = false;
     }
 
-    private void AttackTarget()
+    private bool AttackTarget()
     {
-        if (enemies.Count == 0) return;
+        bool isHitEnemy = false;
+        if (enemies.Count == 0) return isHitEnemy;
         for (int i = enemies.Count - 1; i >= 0; i--)
         {
             bool isEnemyDead = false;
@@ -345,9 +354,12 @@ public class PlayerController : MonoBehaviour
                         isEnemyDead = enemies[i].GetComponent<EnemyCharacter>().TakeDamage(playerCharacter.Atk);
                     }
                 }
+                isHitEnemy = true;
             }
             if (isEnemyDead) enemies.Remove(enemies[i]);
         }
+
+        return isHitEnemy;
     }
     void FindAllEnemyInScene()
     {

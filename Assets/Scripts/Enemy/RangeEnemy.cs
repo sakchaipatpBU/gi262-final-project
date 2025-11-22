@@ -54,6 +54,7 @@ public class RangeEnemy : EnemyCharacter
             Vector2 dir = (playerCharacter.transform.position - firePoint.position).normalized;
             GameObject bullet = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
             bullet.GetComponent<EnemyProjectile>().Initialize(dir, atk);
+            SoundManager.Instance.PlaySFX("Range_Shoot", 0.2f);
         }
     }
     public override IEnumerator AttackAnimCoroutine()

@@ -36,5 +36,7 @@ public class QuestTrackingUI : MonoBehaviour
     {
         currentQuest = null;
         QuestUIManager.Instance.CancelQuestByQuestTrackingUI();
+        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
     }
 }

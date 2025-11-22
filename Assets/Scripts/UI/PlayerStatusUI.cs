@@ -55,10 +55,14 @@ public class PlayerStatusUI : MonoBehaviour
             if (!isDisplay) 
             {
                 DisplayUI();
-            } 
+                SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
+            }
             else
             {
                 CloseDisplayUI();
+                SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
             }
         }
 
@@ -156,12 +160,16 @@ public class PlayerStatusUI : MonoBehaviour
     {
         spendingPoint++;
         UpDateSpendingPointUI();
+        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
     }
     public void OnReduceSpendingPointClicked()
     {
         spendingPoint--;
         if (spendingPoint < 1) spendingPoint = 1;
         UpDateSpendingPointUI();
+        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
     }
     public void OnHpUpgradeButtonClicked()
     {
@@ -178,6 +186,8 @@ public class PlayerStatusUI : MonoBehaviour
             StopAllCoroutines();
             failCoroutine = StartCoroutine(ShowFailPanel("Something wrong, Can NOT upgrade."));
         }
+        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
     }
     public void OnAtkUpgradeButtonClicked()
     {
@@ -194,6 +204,8 @@ public class PlayerStatusUI : MonoBehaviour
             StopAllCoroutines();
             failCoroutine = StartCoroutine(ShowFailPanel("Something wrong, Can NOT upgrade."));
         }
+        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
     }
     public void OnMovementUpgradeButtonClicked()
     {
@@ -210,6 +222,8 @@ public class PlayerStatusUI : MonoBehaviour
             StopAllCoroutines();
             failCoroutine = StartCoroutine(ShowFailPanel("Something wrong, Can NOT upgrade."));
         }
+        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
     }
 
     public void OnComfirmResetButtonClicked()
@@ -229,10 +243,14 @@ public class PlayerStatusUI : MonoBehaviour
             StopAllCoroutines();
             failCoroutine = StartCoroutine(ShowFailPanel("Something wrong, Can NOT reset your upgrade."));
         }
+        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
     }
     public void OnResetButtonClick()
     {
         resetPriceText.text = "- " + playerCharacter.CalculateResetPrice().ToString();
+        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
     }
 
     IEnumerator ShowFailPanel(string text)

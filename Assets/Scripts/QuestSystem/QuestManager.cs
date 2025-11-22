@@ -104,4 +104,12 @@ public class QuestManager : MonoBehaviour
         Debug.Log($"Canceled quest: {currentQuest.questData.questName}");
         currentQuest = null;
     }
+
+    public void ResetProgress()
+    {
+        if (currentQuest == null && currentQuest.questData != null && !currentQuest.isCompleted)
+        {
+            currentQuest.currentProgress = 0;
+        }
+    }
 }

@@ -98,6 +98,8 @@ public abstract class EnemyCharacter : Character
         ToggleXDirection((float)x);
         SetAnimation(deadAnimName);
 
+        SoundManager.Instance.PlaySFX("Dead_Monster", 0.3f);
+
         dieCoroutine = StartCoroutine(DieCoroutine());
     }
     protected IEnumerator GetHitCoroutine()

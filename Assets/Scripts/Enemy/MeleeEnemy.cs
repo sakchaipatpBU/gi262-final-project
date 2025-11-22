@@ -51,7 +51,7 @@ public class MeleeEnemy : EnemyCharacter
         {
             Debug.Log($"{characterName} attack {target.characterName} , But Not Hit");
         }
-
+        SoundManager.Instance.PlaySFX("Sword_Hit", 0.3f);
     }
     public override IEnumerator AttackAnimCoroutine()
     {

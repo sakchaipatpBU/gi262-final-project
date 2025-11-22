@@ -145,17 +145,22 @@ public class QuestSlotUI : MonoBehaviour
     {
         QuestManager.Instance.AcceptQuest(questData);
         QuestUIManager.Instance.UpdateAllQuestSlot();
+        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
     }
 
     private void ClaimQuest()
     {
         QuestManager.Instance.ClaimReward();
         QuestUIManager.Instance.UpdateAllQuestSlot();
+        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
     }
 
     private void CancelQuest()
     {
         QuestManager.Instance.CancelQuest();
         QuestUIManager.Instance.UpdateAllQuestSlot();
+        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+
     }
 }

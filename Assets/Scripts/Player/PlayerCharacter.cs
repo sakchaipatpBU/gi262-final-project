@@ -87,7 +87,8 @@ public class PlayerCharacter : Character
         Debug.Log($"{characterName} is dead!");
         playerController.DeadAnimation();
         GameManager.Instance.GaveOver();
-        // to-do add effect
+
+        SoundManager.Instance.PlaySFX("Dead_Player", 0.3f);
     }
     public void AddGold(int g)
     {
@@ -108,6 +109,8 @@ public class PlayerCharacter : Character
     {
         while (currentExp >= expToNextLevel)
         {
+            SoundManager.Instance.PlaySFX("LevelUp", 0.3f);
+
             level++;
             statusPoint++;
             statusPointLeft++;

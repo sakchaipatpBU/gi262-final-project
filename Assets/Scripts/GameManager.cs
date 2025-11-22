@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     public void GaveOver()
     {
+        QuestManager.Instance.ResetProgress();
         gameOverPanel.SetActive(true);
         player.gameObject.GetComponent<PlayerController>().enabled = false;
         player.enabled = false;

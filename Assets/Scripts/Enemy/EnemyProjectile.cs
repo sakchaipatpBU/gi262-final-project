@@ -24,6 +24,7 @@ public class EnemyProjectile : MonoBehaviour
         PlayerCharacter player = other.GetComponent<PlayerCharacter>();
         if (player != null)
         {
+            SoundManager.Instance.PlaySFX("Range_Hit_Player", 0.3f);
             player.TakeDamage(damage);
             player.gameObject.GetComponent<PlayerController>().SetHitDirection(transform.position);
             Destroy(gameObject);
