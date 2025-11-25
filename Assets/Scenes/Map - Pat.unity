@@ -26727,6 +26727,10 @@ PrefabInstance:
       propertyPath: movementPoint
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7353378177284892381, guid: 6b8e7d1f8bd5cee459a165ec83fb689f, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1234304043}
     - target: {fileID: 8632749860683993776, guid: 6b8e7d1f8bd5cee459a165ec83fb689f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -26788,6 +26792,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e566ef280f83544684fa4f9375d0ceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1234304043 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6977788064494785016, guid: 6b8e7d1f8bd5cee459a165ec83fb689f, type: 3}
+  m_PrefabInstance: {fileID: 1234304035}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1241847598
 PrefabInstance:
   m_ObjectHideFlags: 0

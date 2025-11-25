@@ -132,11 +132,13 @@ public class QuestUIManager : MonoBehaviour
     }
     public void CloseBoardQuest()
     {
+        if (isDisplay)
+        {
+            SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
+        }
         isDisplay = false;
         if (questBoardPanel != null)
         questBoardPanel.SetActive(false);
-        SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
-
     }
 
     public void OnExitQuestBoardButtonClicked()

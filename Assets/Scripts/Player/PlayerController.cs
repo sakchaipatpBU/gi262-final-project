@@ -43,6 +43,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private List<EnemyCharacter> enemies = new List<EnemyCharacter>();
     private Coroutine attackCooldownCoroutine;
 
+    private bool isWalkSFXPlaying = false;
+    private Coroutine walkSFXPlayingCoroutine;
+    public AudioSource audioSource;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -150,6 +154,23 @@ public class PlayerController : MonoBehaviour
 
             return;
         }
+        if (moveAction.IsPressed())
+        {
+            if (!isWalkSFXPlaying)
+            {
+                audioSource.Play();
+                walkSFXPlayingCoroutine = StartCoroutine(WalkSFXPlayingCoroutine());
+            }
+        }
+        else
+        {
+            if (walkSFXPlayingCoroutine != null)
+            {
+                StopCoroutine(walkSFXPlayingCoroutine);
+                isWalkSFXPlaying = false;
+                audioSource.Stop();
+            }
+        }
         moveDirection = moveAction.ReadValue<Vector2>();
 
         if(moveDirection == Vector2.zero)
@@ -218,7 +239,7 @@ public class PlayerController : MonoBehaviour
                 targetVelocity, 
                 ref currentVelocity, 
                 smoothTime);
-
+        
     }
 
     public void SetDirection(float x, float y)
@@ -374,5 +395,12 @@ public class PlayerController : MonoBehaviour
     public void UpdateMoveSpeed()
     {
         moveSpeed = playerCharacter.MoveSpeed;
+    }
+
+    IEnumerator WalkSFXPlayingCoroutine()
+    {
+        isWalkSFXPlaying = true;
+        yield return new WaitForSeconds(0.444f);
+        isWalkSFXPlaying = false;
     }
 }
