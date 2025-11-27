@@ -42,11 +42,7 @@ public class QuestManager : MonoBehaviour
     public void AcceptQuest(QuestData quest)
     {
         if (HasActiveQuest())
-        {
-            Debug.LogWarning($"HasActiveQuest");
-        }
-        if (HasActiveQuest())
-        {
+        {   
             Debug.LogWarning($"You already have an active quest: {currentQuest.questData.questName}. Cancel it first!");
             return;
         }
@@ -107,7 +103,7 @@ public class QuestManager : MonoBehaviour
 
     public void ResetProgress()
     {
-        if (currentQuest == null && currentQuest.questData != null && !currentQuest.isCompleted)
+        if (currentQuest != null && currentQuest.questData != null && !currentQuest.isCompleted)
         {
             currentQuest.currentProgress = 0;
         }

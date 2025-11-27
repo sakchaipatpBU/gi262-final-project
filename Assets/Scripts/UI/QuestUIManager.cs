@@ -8,7 +8,7 @@ public class QuestUIManager : MonoBehaviour
     [Header("UI References")]
     public Transform contentParent;  // Content in ScrollView
     public GameObject questSlotPrefab;
-    public GameObject questBoardPanel; // parent of all UI
+    public GameObject questBoardPanel; // parent of all Quest Board UI
     public GameObject questTrackingUIPanel;
     public GameObject questTimeTrailUIPanel;
     public QuestProgress currentQuest;
@@ -18,7 +18,7 @@ public class QuestUIManager : MonoBehaviour
     private List<QuestData> allQuests = new List<QuestData>();
     private List<QuestSlotUI> allQuestsOnBoard = new List<QuestSlotUI>();
 
-    private QuestBoardNPC questBoardNPC;
+    public QuestBoardNPC questBoardNPC;
     private InputAction questAction;
     [SerializeField] private bool isDisplay = false;
     [SerializeField] private bool canDisplay = false;
@@ -29,10 +29,39 @@ public class QuestUIManager : MonoBehaviour
     {
         if(instance == null) instance = this;
         else Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
 
         questAction = InputSystem.actions.FindAction("Interact");
-        questBoardNPC = GameObject.Find("QuestBoardNPC").GetComponent<QuestBoardNPC>(); ////////
 
+    }
+    public void Init(Transform _contentParent, GameObject _questBoardPanel, GameObject _questTrackingUIPanel
+        , GameObject _questTimeTrailUIPanel, QuestTrackingUI _questTrackingUI, QuestTimeTrailUI _questTimeTrailUI
+        , QuestBoardNPC _questBoardNPC)
+    {
+        contentParent = _contentParent;
+        questBoardPanel = _questBoardPanel;
+        questTrackingUIPanel = _questTrackingUIPanel;
+        if (_questTimeTrailUIPanel != null)
+        {
+            questTimeTrailUIPanel = _questTimeTrailUIPanel;
+        }
+        questTrackingUI = _questTrackingUI;
+        if (_questTimeTrailUI != null)
+        {
+            questTimeTrailUI = _questTimeTrailUI;
+        }
+        if (_questBoardNPC != null)
+        {
+            questBoardNPC = _questBoardNPC;
+        }
+
+        LoadAllQuests();
+        GenerateQuestListUI();
+        questBoardPanel.SetActive(false);
+        if (questTimeTrailUI != null)
+        {
+            questTimeTrailUIPanel.SetActive(false);
+        }
     }
     private void Start()
     {

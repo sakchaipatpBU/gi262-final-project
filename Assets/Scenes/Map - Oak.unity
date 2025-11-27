@@ -25579,7 +25579,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &821884229
 RectTransform:
   m_ObjectHideFlags: 0
@@ -66465,6 +66465,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCharacter: {fileID: 831047700}
+  contentParent: {fileID: 1013182221}
+  questBoardPanel: {fileID: 1013182219}
+  questTrackingUIPanel: {fileID: 1656864654}
+  questTimeTrailUIPanel: {fileID: 821884228}
+  questTrackingUI: {fileID: 1822167841}
+  questTimeTrailUI: {fileID: 1231070293}
+  questBoardNPC: {fileID: 0}
 --- !u!4 &1786652253
 Transform:
   m_ObjectHideFlags: 0

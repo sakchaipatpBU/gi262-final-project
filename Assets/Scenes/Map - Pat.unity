@@ -17503,6 +17503,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1732847213}
     - target: {fileID: 4611908584127292395, guid: 596605bdcf622ed459306420bf5b8ca6, type: 3}
+      propertyPath: questBoardNPC
+      value: 
+      objectReference: {fileID: 1116308344}
+    - target: {fileID: 4611908584127292395, guid: 596605bdcf622ed459306420bf5b8ca6, type: 3}
       propertyPath: questBoardPanel
       value: 
       objectReference: {fileID: 957796555}
@@ -43329,6 +43333,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCharacter: {fileID: 1234304037}
+  contentParent: {fileID: 1732847213}
+  questBoardPanel: {fileID: 957796555}
+  questTrackingUIPanel: {fileID: 596743156}
+  questTimeTrailUIPanel: {fileID: 0}
+  questTrackingUI: {fileID: 1894394078}
+  questTimeTrailUI: {fileID: 0}
+  questBoardNPC: {fileID: 1116308344}
 --- !u!4 &1871570375
 Transform:
   m_ObjectHideFlags: 0
