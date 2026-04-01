@@ -366,6 +366,7 @@ public class PlayerController : MonoBehaviour
                     if (attackDirection == 1 || attackDirection == 4)
                     {
                         isEnemyDead = enemies[i].GetComponent<EnemyCharacter>().TakeDamage(playerCharacter.Atk);
+                        playerCharacter.AddFury(10);
                     }
                 }
                 else if(dX == -1)
@@ -373,6 +374,7 @@ public class PlayerController : MonoBehaviour
                     if (attackDirection == 2 || attackDirection == 3)
                     {
                         isEnemyDead = enemies[i].GetComponent<EnemyCharacter>().TakeDamage(playerCharacter.Atk);
+                        playerCharacter.AddFury(10);
                     }
                 }
                 isHitEnemy = true;

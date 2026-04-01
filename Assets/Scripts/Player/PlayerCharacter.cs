@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCharacter : Character
 {
@@ -50,10 +53,34 @@ public class PlayerCharacter : Character
     [SerializeField] private float baseAtk;
     [SerializeField] private float baseMovement;
 
+    [Header("Fury Mode")]
+    [SerializeField]
+    private int fury;
+    public int Fury { get { return fury; } set { fury = value; } }
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+    [SerializeField]
+    private Image furyFillBar;
+    [SerializeField]
+    private TMP_Text furyText;
+    [SerializeField]
+    private float furyDuration = 5f;
+    [SerializeField]
+    private float rainbowSpeed = 2f;
+
+    private Coroutine furyCoroutine;
+    private Color originalColor;
+    private bool isFuryActive = false;
+
     private void Awake()
     {
         playerController = gameObject.GetComponent<PlayerController>();
-
+        if (spriteRenderer == null)
+            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+        furyFillBar.fillAmount = 0f;
+        fury = (int)(furyFillBar.fillAmount * 100);
+        furyText.text = $"{fury} %";
     }
     public override void Start()
     {
@@ -234,4 +261,87 @@ public class PlayerCharacter : Character
     }
     #endregion
 
+    #region Fury Mode
+    private bool CheckFury()
+    {
+        if (fury >= 100)
+        {
+            fury = 100;
+            return true;
+        }
+        else return false;
+    }
+
+    private void ActivateFuryMode()
+    {
+        if (isFuryActive)
+            return;
+
+        furyCoroutine = StartCoroutine(FuryModeRoutine());
+    }
+
+    private IEnumerator FuryModeRoutine()
+    {
+        isFuryActive = true;
+
+        // Apply Buff
+        ApplyBuff(true);
+        SoundManager.Instance.PlaySFX("buff", 0.3f);
+
+
+        float timer = furyDuration;
+
+        while (timer > 0)
+        {
+            timer -= Time.deltaTime;
+
+            // Rainbow Color Effect
+            float hue = Mathf.PingPong(Time.time * rainbowSpeed, 1f);
+            spriteRenderer.color = Color.HSVToRGB(hue, 1f, 1f);
+
+            // UI Fill Bar Countdown
+            furyFillBar.fillAmount = timer / furyDuration;
+
+            fury = (int)(furyFillBar.fillAmount * 100);
+            furyText.text = $"{fury} %";
+
+            yield return null;
+        }
+
+        // Reset everything
+        spriteRenderer.color = originalColor;
+        furyFillBar.fillAmount = 0f;
+
+        ApplyBuff(false);
+
+        isFuryActive = false;
+    }
+    private void ApplyBuff(bool enable)
+    {
+        if (enable)
+        {
+            atk *= 1.5f;
+            moveSpeed *= 1.5f;
+            playerController.UpdateMoveSpeed();
+        }
+        else
+        {
+            atk /= 1.5f;
+            moveSpeed /= 1.5f;
+            playerController.UpdateMoveSpeed();
+        }
+    }
+
+    public void AddFury(int f)
+    {
+        if (isFuryActive)
+            return;
+
+        fury += f;
+        if (CheckFury()) ActivateFuryMode();
+        furyFillBar.fillAmount = (float)fury / 100f;
+        furyText.text = $"{fury} %";
+    }
+
+    #endregion Fury Mode
 }
