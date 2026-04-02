@@ -47,6 +47,16 @@ public class QuestManager : MonoBehaviour
             return;
         }
 
+        GameAnalyticsService.Instance.LogQuestAccepted(new QuestAcceptedData
+        {
+            QuestName = quest.questName,
+            QuestType = quest.questType,
+            QuestObjectiveType = quest.objective.type,
+            PlayerLevel = player.Level,
+            ExpReward = quest.expReward,
+            GoldReward = quest.goldReward
+        });
+
         currentQuest = new QuestProgress(quest);
         Debug.Log($"Accepted quest: {quest.questName}");
     }

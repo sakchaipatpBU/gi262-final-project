@@ -20,12 +20,20 @@ public class QuestTimeTrailUI : MonoBehaviour
 
     private void Update()
     {
-        if(!isStart || GameManager.Instance.isGameOver 
-            || currentQuest.isCompleted) return;
+        if(!isInit) return;
+
+        if(GameManager.Instance.isGameOver
+            || currentQuest.isCompleted)
+        {
+            SendAnalytics();
+        }
+
+        if(!isStart) return;
         questTime -= Time.deltaTime;
         if(questTime <= 0)
         {
             questTime = 0;
+            SendAnalytics();
             isStart = false;
             GameManager.Instance.GaveOver();
         }
@@ -37,5 +45,17 @@ public class QuestTimeTrailUI : MonoBehaviour
         {
             timeCountingText.text = questTime.ToString("0.00");
         }
+    }
+
+    private void SendAnalytics()
+    {
+        GameAnalyticsService.Instance.LogTimeTrialQuestWinRate(new TimeTrialQuestData
+        {
+            QuestName = currentQuest.questData.questName,
+            QuestTimeLimit = currentQuest.questData.questTimeLimit,
+            QuestObjectiveType = currentQuest.questData.objective.type,
+            QuestSuccessTimeLeft = questTime
+        });
+        Destroy(gameObject);
     }
 }

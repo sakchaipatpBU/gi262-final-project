@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Scripting;
 using UnityEngine.UI;
 
 public class QuestSlotUI : MonoBehaviour
@@ -147,7 +148,6 @@ public class QuestSlotUI : MonoBehaviour
         QuestUIManager.Instance.UpdateAllQuestSlot();
         SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
     }
-
     private void ClaimQuest()
     {
         QuestManager.Instance.ClaimReward();
@@ -155,12 +155,10 @@ public class QuestSlotUI : MonoBehaviour
         SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
 
     }
-
     private void CancelQuest()
     {
         QuestManager.Instance.CancelQuest();
         QuestUIManager.Instance.UpdateAllQuestSlot();
         SoundManager.Instance.PlaySFX("Click_UI", 0.3f);
-
     }
 }

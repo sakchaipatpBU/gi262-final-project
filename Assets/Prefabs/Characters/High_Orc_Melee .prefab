@@ -96,6 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5516874558024704387}
+  - component: {fileID: 4717313635281803147}
   - component: {fileID: 2494738131769505516}
   - component: {fileID: 4900820902187280479}
   - component: {fileID: 5499874130374966353}
@@ -124,6 +125,42 @@ Transform:
   - {fileID: 5463119878141443658}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4717313635281803147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7431243181888323954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45815cb1bbb1b0445af05f0c0cb7bc76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  characterName: 'High Orc Melee '
+  maxHp: 500
+  hp: 0
+  atk: 15
+  moveSpeed: 3
+  attackRange: 1
+  animator: {fileID: 0}
+  idleAnimName: Idle
+  attackAnimName: Attack
+  walkAnimName: Walk
+  getHitAnimName: Dmg
+  deadAnimName: Die
+  attackDirection: 1
+  hitDirection: 1
+  playerCharacter: {fileID: 0}
+  playerController: {fileID: 0}
+  detectionRange: 5
+  attackCooldown: 2
+  lastAttackTime: 0
+  expDrop: 55
+  goldDrop: 25
+  hpDrop: 70
+  currentAnimName: 
 --- !u!114 &2494738131769505516
 MonoBehaviour:
   m_ObjectHideFlags: 0
