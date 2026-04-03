@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -98,7 +99,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (canAttack && attackAction.IsPressed())
+        if (canAttack && attackAction.IsPressed() && !EventSystem.current.IsPointerOverGameObject())
         {
             // cooldown starting..
             attackCooldownCoroutine = StartCoroutine(AttackActionCooldownCoroutine());
