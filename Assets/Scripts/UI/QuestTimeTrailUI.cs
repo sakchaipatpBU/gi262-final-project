@@ -26,15 +26,18 @@ public class QuestTimeTrailUI : MonoBehaviour
         {
             SendAnalytics("Success");
         }
+        if (GameManager.Instance.isGameOver)
+        {
+            SendAnalytics("Fail");
+        }
 
-        if(!isStart) return;
+        if (!isStart) return;
         questTime -= Time.deltaTime;
         if(questTime <= 0)
         {
             isStart = false;
             questTime = 0;
             GameManager.Instance.GaveOver();
-            SendAnalytics("Fail");
         }
         if(questTime > 10)
         {
