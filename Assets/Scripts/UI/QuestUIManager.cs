@@ -17,6 +17,7 @@ public class QuestUIManager : MonoBehaviour
 
     private List<QuestData> allQuests = new List<QuestData>();
     private List<QuestSlotUI> allQuestsOnBoard = new List<QuestSlotUI>();
+    private QuestProgress _lastTrackedQuest;
 
     public QuestBoardNPC questBoardNPC;
     private InputAction questAction;
@@ -67,8 +68,8 @@ public class QuestUIManager : MonoBehaviour
     {
         LoadAllQuests();
         GenerateQuestListUI();
-        questBoardPanel.SetActive(false);
-        if(questTimeTrailUI != null)
+        if (questBoardPanel != null) questBoardPanel.SetActive(false);
+        if (questTimeTrailUI != null && questTimeTrailUIPanel != null)
         {
             questTimeTrailUIPanel.SetActive(false);
         }
@@ -78,8 +79,26 @@ public class QuestUIManager : MonoBehaviour
         if(QuestManager.Instance.HasActiveQuest())
         {
             currentQuest = QuestManager.Instance.currentQuest;
-            questTrackingUI.Initialize(currentQuest);
-            questTrackingUIPanel.SetActive(true);
+
+            // Initialize tracking UI เฉพาะเมื่อ quest เปลี่ยน ไม่ใช่ทุก frame
+            if (currentQuest != _lastTrackedQuest)
+            {
+                _lastTrackedQuest = currentQuest;
+                
+                UpdateAllQuestSlot();
+            }
+
+            if (questTrackingUI != null)
+            {
+                if(currentQuest != questTrackingUI.currentQuest)
+                {
+                    questTrackingUI.Initialize(currentQuest);
+                }
+            }
+
+
+            if (questTrackingUIPanel != null)
+                questTrackingUIPanel.SetActive(true);
 
             if(currentQuest.questData.questType == QuestType.TimeTrail
                 && questTimeTrailUI != null)
@@ -87,19 +106,30 @@ public class QuestUIManager : MonoBehaviour
                 if (!questTimeTrailUI.isInit)
                 {
                     questTimeTrailUI.Init(currentQuest);
-                    questTimeTrailUIPanel.SetActive(true);
+                    if (questTimeTrailUIPanel != null)
+                        questTimeTrailUIPanel.SetActive(true);
                 }
                 if (currentQuest.isCompleted)
                 {
-                    questTimeTrailUIPanel.SetActive(false);
+                    if (questTimeTrailUIPanel != null)
+                        questTimeTrailUIPanel.SetActive(false);
                 }
             }
         }
         else
         {
-            questTrackingUIPanel.SetActive(false);
+            // Quest หมด — reset tracking เผื่อรับเควสใหม่ครั้งหน้า
+            if (_lastTrackedQuest != null)
+            {
+                _lastTrackedQuest = null;
+                currentQuest = null;
+                UpdateAllQuestSlot();
+            }
 
-            if (questTimeTrailUI != null)
+            if (questTrackingUIPanel != null)
+                questTrackingUIPanel.SetActive(false);
+
+            if (questTimeTrailUI != null && questTimeTrailUIPanel != null)
             {
                 questTimeTrailUIPanel.SetActive(false);
             }

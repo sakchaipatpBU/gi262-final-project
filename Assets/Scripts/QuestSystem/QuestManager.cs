@@ -20,6 +20,16 @@ public class QuestManager : MonoBehaviour
     {
         player = _player;
     }
+    private PlayerCharacter GetPlayer()
+    {
+        if (player != null) return player;
+        GameObject playerObj = GameObject.Find("Player");
+        if (playerObj != null)
+            player = playerObj.GetComponent<PlayerCharacter>();
+        if (player == null)
+            Debug.LogWarning("[QuestManager] Player not found — call Init() from InitializeScene.");
+        return player;
+    }
     public bool HasActiveQuest()
     {
         if(currentQuest == null)
@@ -47,12 +57,13 @@ public class QuestManager : MonoBehaviour
             return;
         }
 
+        PlayerCharacter p = GetPlayer();
         GameAnalyticsService.Instance.LogQuestAccepted(new QuestAcceptedData
         {
             QuestName = quest.questName,
             QuestType = quest.questType,
             QuestObjectiveType = quest.objective.type,
-            PlayerLevel = player.Level,
+            PlayerLevel = p != null ? p.Level : 0,
             ExpReward = quest.expReward,
             GoldReward = quest.goldReward
         });
@@ -87,10 +98,16 @@ public class QuestManager : MonoBehaviour
             Debug.Log("Reward already claimed!");
             return;
         }
+        PlayerCharacter p = GetPlayer();
+        if (p == null)
+        {
+            Debug.LogWarning("[QuestManager] Cannot claim reward — player not found.");
+            return;
+        }
         QuestData completedQuest = currentQuest.questData;
         completedQuests.Add(completedQuest);
-        player.AddExperience(currentQuest.questData.expReward);
-        player.AddGold(currentQuest.questData.goldReward);
+        p.AddExperience(currentQuest.questData.expReward);
+        p.AddGold(currentQuest.questData.goldReward);
         currentQuest.isClaimed = true;
 
         Debug.Log($"Claimed reward: +{currentQuest.questData.expReward} EXP, +{currentQuest.questData.goldReward} Gold");

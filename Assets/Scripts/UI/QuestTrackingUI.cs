@@ -10,21 +10,22 @@ public class QuestTrackingUI : MonoBehaviour
     public TMP_Text progresText;
     public Image progressBarImage;
 
+
     public void Initialize(QuestProgress _currentQuest)
     {
         currentQuest = _currentQuest;
-        SetupUI();
+        UpdateQuestTrackingUI();
     }
 
     void Update()
     {
         if (currentQuest != null && currentQuest.questData != null)
         {
-            progresText.text = $"{currentQuest.currentProgress}/{currentQuest.questData.objective.requiredAmount}";
+            UpdateQuestTrackingUI();
         }
 
     }
-    void SetupUI()
+    void UpdateQuestTrackingUI()
     {
         questNameText.text = currentQuest.questData.questName;
         progresText.text = $"{currentQuest.currentProgress}/{currentQuest.questData.objective.requiredAmount}";
