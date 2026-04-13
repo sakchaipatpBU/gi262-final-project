@@ -32,7 +32,9 @@ public class TimeTrialQuestWinRateEvent : Unity.Services.Analytics.Event
 {
     public TimeTrialQuestWinRateEvent() : base(AnalyticsEventNames.TimeTrialQuestWinRate) { }
     public string QuestName { set => SetParameter(AnalyticsParams.QuestName, value); }
-    public float QuestTimeLimit { set => SetParameter(AnalyticsParams.QuestTimeLimit, value); }
     public string QuestObjectiveType { set => SetParameter(AnalyticsParams.QuestObjectiveType, value); }
-    public float QuestSuccessTimeLeft { set => SetParameter(AnalyticsParams.QuestSuccessTimeLeft, value); }
+    public float QuestTimeLimit { set => SetParameter(AnalyticsParams.QuestTimeLimit, value); }
+    public float QuestProgress { set => SetParameter(AnalyticsParams.QuestProgress, value); }
+    public float QuestTimeLeft { set => SetParameter(AnalyticsParams.QuestTimeLeft, value); }
+    public string QuestResult { set => SetParameter(AnalyticsParams.QuestResult, value); }
 }

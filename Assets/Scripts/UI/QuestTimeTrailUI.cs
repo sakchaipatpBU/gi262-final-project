@@ -22,20 +22,19 @@ public class QuestTimeTrailUI : MonoBehaviour
     {
         if(!isInit) return;
 
-        if(GameManager.Instance.isGameOver
-            || currentQuest.isCompleted)
+        if(currentQuest.isCompleted)
         {
-            SendAnalytics();
+            SendAnalytics("Success");
         }
 
         if(!isStart) return;
         questTime -= Time.deltaTime;
         if(questTime <= 0)
         {
-            questTime = 0;
-            SendAnalytics();
             isStart = false;
+            questTime = 0;
             GameManager.Instance.GaveOver();
+            SendAnalytics("Fail");
         }
         if(questTime > 10)
         {
@@ -47,14 +46,18 @@ public class QuestTimeTrailUI : MonoBehaviour
         }
     }
 
-    private void SendAnalytics()
+    private void SendAnalytics(string result)
     {
         GameAnalyticsService.Instance.LogTimeTrialQuestWinRate(new TimeTrialQuestData
         {
             QuestName = currentQuest.questData.questName,
-            QuestTimeLimit = currentQuest.questData.questTimeLimit,
             QuestObjectiveType = currentQuest.questData.objective.type,
-            QuestSuccessTimeLeft = questTime
+            QuestTimeLimit = currentQuest.questData.questTimeLimit,
+            QuestProgress = ((float)currentQuest.currentProgress 
+                            / (float)currentQuest.questData.objective.requiredAmount) 
+                            * 100,
+            QuestTimeLeft = questTime,
+            QuestResult = result
         });
         Destroy(gameObject);
     }

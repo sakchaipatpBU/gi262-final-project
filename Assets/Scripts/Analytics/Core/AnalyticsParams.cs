@@ -20,5 +20,7 @@ public static class AnalyticsParams
 
     // TimeTrialQuestWinRate
     public const string QuestTimeLimit = "questTimeLimit";
-    public const string QuestSuccessTimeLeft = "questSuccessTimeLeft";
+    public const string QuestProgress = "questProgress";
+    public const string QuestTimeLeft = "questTimeLeft";
+    public const string QuestResult = "questResult";
 }

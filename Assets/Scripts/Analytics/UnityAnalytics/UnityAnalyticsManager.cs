@@ -57,10 +57,12 @@ public class UnityAnalyticsManager : IAnalyticsManager
         if (!Ready(AnalyticsEventNames.TimeTrialQuestWinRate)) return;
         AnalyticsService.Instance.RecordEvent(new TimeTrialQuestWinRateEvent
         {
-            QuestName = d.QuestName,
-            QuestTimeLimit = d.QuestTimeLimit,
+            QuestName          = d.QuestName,
             QuestObjectiveType = d.QuestObjectiveType.ToString(),
-            QuestSuccessTimeLeft = d.QuestSuccessTimeLeft
+            QuestTimeLimit     = d.QuestTimeLimit,
+            QuestProgress      = d.QuestProgress,
+            QuestTimeLeft      = d.QuestTimeLeft,
+            QuestResult        = d.QuestResult
         });
     }
 

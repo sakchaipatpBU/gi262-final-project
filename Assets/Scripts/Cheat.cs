@@ -60,6 +60,12 @@ public class Cheat : MonoBehaviour
         player = GetPlayer();
         player.AddExperience(1000);
     }
+
+    public void ButtonAddGold(int g)
+    {
+        player = GetPlayer();
+        player.AddGold(g);
+    }
     public void ButtonAddCompleteQuest(int index)
     {
         questManager = GetQuestManager();

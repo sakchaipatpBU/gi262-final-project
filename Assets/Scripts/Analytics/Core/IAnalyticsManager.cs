@@ -39,7 +39,9 @@ public struct BossBattleData
 public struct TimeTrialQuestData
 {
     public string QuestName;
-    public float QuestTimeLimit;
     public QuestObjectiveType QuestObjectiveType;
-    public float QuestSuccessTimeLeft; // 0 = fail
+    public float QuestTimeLimit;
+    public float QuestProgress;
+    public float QuestTimeLeft;
+    public string QuestResult;  // "Success" or "Fail"
 }

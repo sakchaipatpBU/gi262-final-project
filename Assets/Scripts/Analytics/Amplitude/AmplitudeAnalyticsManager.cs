@@ -100,10 +100,12 @@ public class AmplitudeAnalyticsManager : IAnalyticsManager
         Send(AnalyticsEventNames.TimeTrialQuestWinRate,
             new Dictionary<string, object>
             {
-                    { AnalyticsParams.QuestName,            data.QuestName },
-                    { AnalyticsParams.QuestTimeLimit,       data.QuestTimeLimit },
-                    { AnalyticsParams.QuestObjectiveType,   data.QuestObjectiveType.ToString() },
-                    { AnalyticsParams.QuestSuccessTimeLeft, data.QuestSuccessTimeLeft }
+                    { AnalyticsParams.QuestName,          data.QuestName },
+                    { AnalyticsParams.QuestObjectiveType, data.QuestObjectiveType.ToString() },
+                    { AnalyticsParams.QuestTimeLimit,     data.QuestTimeLimit },
+                    { AnalyticsParams.QuestProgress,      data.QuestProgress },
+                    { AnalyticsParams.QuestTimeLeft,      data.QuestTimeLeft },
+                    { AnalyticsParams.QuestResult,        data.QuestResult }
             });
     }
 
