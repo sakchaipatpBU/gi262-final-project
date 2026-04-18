@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  characterName: 'High Orc Melee '
+  characterName: High Orc Melee
   maxHp: 500
   hp: 0
   atk: 15
